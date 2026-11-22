@@ -6,12 +6,17 @@ import {
   createAutoFillPayload,
   generateStudioListings,
   parseQuickProductInput,
+  scoreListing,
   type LiveStudioGenerateResult,
   type SimilarProductInsight,
   type StudioGenerateResult,
 } from '@listlift/core';
 import QuickPhotoBar, { type UploadedPhoto } from './QuickPhotoBar';
-import ListingLoadingCard from './ListingLoadingCard';
+import ScoreRing from '../lift/ScoreRing';
+import PhotoScanSequence from '../lift/PhotoScanSequence';
+import ClaimSafetyHighlighter from '../lift/ClaimSafetyHighlighter';
+import LimitMeter from '../lift/LimitMeter';
+import { createSampleProductPhoto, getGeoOrderedMarketIds, trackEvent } from '../../lib/analytics';
 
 const SKILLS = getAllMarketplaceSkills();
 const FREE_MAX_MARKETS = 2;
@@ -28,35 +33,6 @@ const CATEGORIES = [
   'Handmade & Gifts',
 ];
 
-function ScoreRing({ score }: { score: number }) {
-  const r = 28;
-  const c = 2 * Math.PI * r;
-  const offset = c - (Math.max(0, Math.min(100, score)) / 100) * c;
-  const color = score >= 85 ? 'var(--success)' : score >= 65 ? 'var(--warning)' : 'var(--danger)';
-  return (
-    <div style={{ position: 'relative', width: '70px', height: '70px', display: 'grid', placeItems: 'center' }}>
-      <svg width="70" height="70" viewBox="0 0 70 70" style={{ transform: 'rotate(-90deg)' }} aria-hidden="true">
-        <circle cx="35" cy="35" r={r} fill="none" stroke="var(--border)" stroke-width="6" />
-        <circle
-          cx="35"
-          cy="35"
-          r={r}
-          fill="none"
-          stroke={color}
-          stroke-width="6"
-          stroke-linecap="round"
-          stroke-dasharray={c}
-          stroke-dashoffset={offset}
-          style={{ transition: 'stroke-dashoffset 450ms var(--ease-out)' }}
-        />
-      </svg>
-      <span class="mono" style={{ position: 'absolute', fontWeight: 700, fontSize: '1rem' }}>
-        {score}
-      </span>
-    </div>
-  );
-}
-
 export default function ListingStudio() {
   // 100% blank by default — zero prewritten specs, zero frontend API keys
   const [photo, setPhoto] = useState<UploadedPhoto | null>(null);
@@ -71,6 +47,7 @@ export default function ListingStudio() {
   const [hardFactsText, setHardFactsText] = useState('');
   const [keywordsText, setKeywordsText] = useState('');
   const [urlsText, setUrlsText] = useState('');
+  const [orderedSkills, setOrderedSkills] = useState(SKILLS);
   const [selectedMarkets, setSelectedMarkets] = useState<MarketplaceId[]>(['etsy', 'amazon']);
   const [language, setLanguage] = useState<'en' | 'hi' | 'es' | 'pt' | 'id'>('en');
   const [tone, setTone] = useState<'neutral' | 'premium' | 'playful'>('neutral');
@@ -79,7 +56,11 @@ export default function ListingStudio() {
   const [imageAnalysis, setImageAnalysis] = useState<string | null>(null);
   const [imageMismatch, setImageMismatch] = useState<string | null>(null);
   const [similarProducts, setSimilarProducts] = useState<SimilarProductInsight[]>([]);
-  const [usageQuota, setUsageQuota] = useState<{ used: number; limit: number; remaining: number } | null>(null);
+  const [usageQuota, setUsageQuota] = useState<{ used: number; limit: number; remaining: number }>({
+    used: 0,
+    limit: 3,
+    remaining: 3,
+  });
   const [limitReached, setLimitReached] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -89,11 +70,56 @@ export default function ListingStudio() {
   const [shareUrl, setShareUrl] = useState<string | null>(null);
   const [toast, setToast] = useState<string | null>(null);
   const [history, setHistory] = useState<Array<{ id: string; productName: string; createdAt: string; markets: number }>>([]);
+  const [autoStartPending, setAutoStartPending] = useState(false);
 
   useEffect(() => {
     try {
       const saved = localStorage.getItem('ll_studio_history');
       if (saved) setHistory(JSON.parse(saved));
+
+      // Geo-order marketplace chips (India -> Flipkart/Meesho/Amazon first; Global -> Etsy/Amazon/eBay first)
+      const geoIds = getGeoOrderedMarketIds();
+      const sorted = geoIds
+        .map((id) => SKILLS.find((s) => s.marketplace === id))
+        .filter((s): s is (typeof SKILLS)[number] => Boolean(s));
+      if (sorted.length > 0) setOrderedSkills(sorted);
+
+      const params = new URLSearchParams(window.location.search);
+      const mParam = params.get('m') as MarketplaceId | null;
+      if (mParam && SKILLS.some((s) => s.marketplace === mParam)) {
+        setSelectedMarkets([mParam]);
+        setActiveMarket(mParam);
+      } else if (sorted[0] && sorted[1]) {
+        setSelectedMarkets([sorted[0].marketplace, sorted[1].marketplace]);
+        setActiveMarket(sorted[0].marketplace);
+      }
+
+      const qParam = params.get('q');
+      if (qParam && qParam.trim()) {
+        applyQuickParse(qParam.trim());
+      }
+
+      // Pick up photo dropped in Hero Smart Command Bar
+      const cmdPhotoRaw = sessionStorage.getItem('ll_cmd_photo');
+      if (cmdPhotoRaw) {
+        sessionStorage.removeItem('ll_cmd_photo');
+        const parsedPhoto = JSON.parse(cmdPhotoRaw) as UploadedPhoto;
+        if (parsedPhoto?.dataUrl) {
+          setPhoto(parsedPhoto);
+          if (params.get('autostart') === '1') {
+            setAutoStartPending(true);
+          }
+        }
+      } else if (params.get('sample') === '1') {
+        void createSampleProductPhoto().then((sample) => {
+          setPhoto(sample);
+          setAutoStartPending(true);
+        });
+      } else if (qParam && params.get('autostart') === '1') {
+        setAutoStartPending(true);
+      }
+
+      trackEvent('visit', { page: 'studio' });
     } catch {}
   }, []);
 
@@ -140,8 +166,8 @@ export default function ListingStudio() {
     });
   };
 
-  const runPipeline = async (e: Event) => {
-    e.preventDefault();
+  const executeGeneration = async (marketsOverride?: MarketplaceId[]) => {
+    const targetMarkets = marketsOverride && marketsOverride.length > 0 ? marketsOverride : selectedMarkets;
     const typedText = (productName || quickInput).trim();
     if (!photo && typedText.length < 2) {
       setErrorMsg('Upload a product photo (recommended) or enter at least 1 line describing your product.');
@@ -167,7 +193,7 @@ export default function ListingStudio() {
       keywords: keywordsText.split(',').map((s) => s.trim()).filter(Boolean),
       competitorUrls: urlsText.split('\n').map((s) => s.trim()).filter((s) => s.startsWith('http')),
       imageNotes: photo ? `${photo.width}x${photo.height} WebP` : '',
-      marketplaces: selectedMarkets,
+      marketplaces: targetMarkets,
       language,
       tone,
       imageDataUrl: photo?.dataUrl,
@@ -190,6 +216,8 @@ export default function ListingStudio() {
         setLimitReached(true);
         setUsageQuota({ used: data.usage?.used ?? 3, limit: data.usage?.limit ?? 3, remaining: 0 });
         setErrorMsg(data.error || 'Daily free limit reached. Upgrade to Pro for unlimited listings.');
+        trackEvent('limit_hit', { tool: 'studio' });
+        trackEvent('paywall_view', { trigger: 'limit_hit' });
         return;
       }
 
@@ -207,6 +235,11 @@ export default function ListingStudio() {
       setActiveMarket(first?.marketplace ?? 'etsy');
       setEditableTitles({});
       setIsGenerating(false);
+      trackEvent('result_view', {
+        markets: data.listings.length,
+        primaryMarket: first?.marketplace,
+        score: first?.score.score,
+      });
 
       // Auto-sync to Chrome Extension + localStorage immediately
       if (first) {
@@ -244,7 +277,20 @@ export default function ListingStudio() {
     }
   };
 
+  const runPipeline = async (e: Event) => {
+    e.preventDefault();
+    await executeGeneration();
+  };
+
+  useEffect(() => {
+    if (autoStartPending && (photo || quickInput.trim().length >= 2) && !isGenerating) {
+      setAutoStartPending(false);
+      void executeGeneration();
+    }
+  }, [autoStartPending, photo, quickInput]);
+
   const copyText = async (text: string, label: string) => {
+    trackEvent('copy', { label, market: activeMarket });
     try {
       await navigator.clipboard.writeText(text);
       showToast(`Copied ${label}`);
@@ -254,6 +300,7 @@ export default function ListingStudio() {
   };
 
   const downloadFile = (content: string, filename: string, mime: string) => {
+    trackEvent('csv_click', { filename, market: activeMarket });
     const blob = new Blob([content], { type: mime });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -266,6 +313,7 @@ export default function ListingStudio() {
 
   const createShareLink = async () => {
     if (!result) return;
+    trackEvent('share', { market: activeMarket });
     try {
       const encoded = btoa(
         unescape(
@@ -400,7 +448,7 @@ export default function ListingStudio() {
             </a>
           </div>
           <div class="chip-group" role="group" aria-label="Target marketplaces">
-            {SKILLS.map((s) => (
+            {orderedSkills.map((s) => (
               <button key={s.marketplace} type="button" class="chip" aria-pressed={selectedMarkets.includes(s.marketplace)} onClick={() => toggleMarket(s.marketplace)}>
                 {s.display_name}
               </button>
@@ -409,26 +457,7 @@ export default function ListingStudio() {
         </div>
 
         {limitReached ? (
-          <div
-            class="card"
-            style={{
-              background: 'var(--bg-subtle)',
-              borderColor: 'var(--accent)',
-              display: 'flex',
-              flexWrap: 'wrap',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: '12px',
-            }}
-          >
-            <div>
-              <strong style={{ fontSize: '0.96rem' }}>Daily free Studio limit reached (3/3 runs today)</strong>
-              <p class="muted" style={{ margin: '4px 0 0', fontSize: '0.85rem' }}>
-                Upgrade to Pro ($7.50/mo billed annually) for unlimited photo-to-listing runs, all 8 marketplaces in 1 click, and Bulk CSV export.
-              </p>
-            </div>
-            <a href="/pricing" class="btn btn-primary btn-sm">Upgrade to Pro</a>
-          </div>
+          <LimitMeter used={usageQuota.limit} limit={usageQuota.limit} />
         ) : errorMsg ? (
           <div style={{ padding: '10px 14px', borderRadius: '10px', background: 'var(--danger-soft)', color: 'var(--danger)', fontSize: '0.86rem', fontWeight: 500 }}>
             {errorMsg}
@@ -436,22 +465,36 @@ export default function ListingStudio() {
         ) : null}
 
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
-          <button type="submit" class="btn btn-primary" disabled={isGenerating || limitReached}>
-            {isGenerating
-              ? 'Building marketplace listing…'
-              : `Generate ${selectedMarkets.length} Marketplace Listing${selectedMarkets.length > 1 ? 's' : ''}`}
-          </button>
-          <span class="muted" style={{ fontSize: '0.82rem' }}>
-            {usageQuota
-              ? `${usageQuota.remaining} of ${usageQuota.limit} free Studio runs left today · Auto-synced to Extension`
-              : '3 free Studio runs / day · Auto-synced to ListLift Chrome Extension'}
-          </span>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center' }}>
+            <button type="submit" class="btn btn-primary" disabled={isGenerating || limitReached}>
+              {isGenerating
+                ? 'Scanning photo & building listing…'
+                : `Generate ${selectedMarkets.length} Marketplace Listing${selectedMarkets.length > 1 ? 's' : ''}`}
+            </button>
+            {!photo && (
+              <button
+                type="button"
+                class="btn btn-secondary btn-sm"
+                disabled={isGenerating}
+                onClick={() => {
+                  trackEvent('sample_click', { source: 'studio' });
+                  void createSampleProductPhoto().then((s) => {
+                    setPhoto(s);
+                    setAutoStartPending(true);
+                  });
+                }}
+              >
+                Try sample photo
+              </button>
+            )}
+          </div>
+          <LimitMeter used={usageQuota.used} limit={usageQuota.limit} />
         </div>
       </form>
 
       {isGenerating && (
-        <ListingLoadingCard
-          photoPreviewUrl={photo?.dataUrl ?? null}
+        <PhotoScanSequence
+          photoDataUrl={photo?.dataUrl ?? null}
           marketplaceNames={selectedMarkets.map((id) => SKILLS.find((s) => s.marketplace === id)?.display_name ?? id)}
         />
       )}
@@ -498,15 +541,65 @@ export default function ListingStudio() {
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-              <ScoreRing score={activeListing.score.score} />
+              {photo?.dataUrl && (
+                <img
+                  src={photo.dataUrl}
+                  alt="Product thumbnail"
+                  style={{ width: '58px', height: '58px', borderRadius: '10px', objectFit: 'cover', border: '1px solid var(--border)' }}
+                />
+              )}
+              <ScoreRing
+                score={
+                  scoreListing({
+                    marketplace: activeListing.marketplace as MarketplaceId,
+                    title: editableTitles[activeListing.marketplace] ?? activeListing.title,
+                    description: activeListing.longDescription,
+                    bullets: activeListing.bullets,
+                    tags: activeListing.tags,
+                    search_terms: activeListing.searchTerms,
+                    seo_title: activeListing.seoMeta.seoTitle,
+                    meta_description: activeListing.seoMeta.metaDescription,
+                    target_keywords: [],
+                  }).score
+                }
+                from={42}
+                size={84}
+                label="LIFT"
+              />
               <div>
                 <div style={{ fontWeight: 700, fontSize: '1rem' }}>Grade {activeListing.score.grade}</div>
                 <div class="muted" style={{ fontSize: '0.82rem' }}>SKU: <span class="mono">{activeListing.sku}</span></div>
+                {/* 1-Click Quick Convert to another marketplace */}
+                {!limitReached && (
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '6px' }}>
+                    {(['flipkart', 'meesho', 'amazon', 'etsy', 'custom'] as MarketplaceId[])
+                      .filter((id) => !result.listings.some((l) => l.marketplace === id))
+                      .slice(0, 2)
+                      .map((id) => {
+                        const sk = SKILLS.find((s) => s.marketplace === id);
+                        if (!sk) return null;
+                        return (
+                          <button
+                            key={id}
+                            type="button"
+                            class="btn btn-ghost btn-sm"
+                            style={{ padding: '2px 8px', height: 'auto', fontSize: '0.73rem' }}
+                            onClick={() => {
+                              setSelectedMarkets([id]);
+                              void executeGeneration([id]);
+                            }}
+                          >
+                            Convert to {sk.display_name} →
+                          </button>
+                        );
+                      })}
+                  </div>
+                )}
               </div>
             </div>
           </div>
 
-          {/* Primary Editable Title (always open at top) */}
+          {/* Primary Editable Title + Live Claim-Safety Highlighter */}
           <div class="card" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
               <strong>Title ({activeListing.marketplaceName})</strong>
@@ -524,6 +617,14 @@ export default function ListingStudio() {
               aria-label="Editable product title"
               value={editableTitles[activeListing.marketplace] ?? activeListing.title}
               onInput={(e) => setEditableTitles((prev) => ({ ...prev, [activeListing.marketplace]: (e.target as HTMLInputElement).value }))}
+            />
+            <ClaimSafetyHighlighter
+              text={`${editableTitles[activeListing.marketplace] ?? activeListing.title} ${activeListing.shortDescription}`}
+              onSafeRewrite={(updated) => {
+                const nextTitle = updated.slice(0, (editableTitles[activeListing.marketplace] ?? activeListing.title).length + 24);
+                setEditableTitles((prev) => ({ ...prev, [activeListing.marketplace]: nextTitle.trim() }));
+                showToast('Rewrote risky claim safely');
+              }}
             />
             {activeListing.alternateTitles.length > 0 && (
               <details style={{ marginTop: '2px' }}>
@@ -802,6 +903,30 @@ export default function ListingStudio() {
               </button>
             </div>
           )}
+
+          {/* Mobile-to-Desktop Extension Handoff + WhatsApp Share */}
+          <div class="card" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '10px', background: 'var(--subtle)' }}>
+            <div style={{ fontSize: '0.84rem' }}>
+              <strong>On phone (Meesho / Flipkart / Shopify)?</strong>{' '}
+              <span class="muted">Send this listing to WhatsApp or desktop Chrome for 1-click Auto-Fill.</span>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <a
+                href={`https://wa.me/?text=${encodeURIComponent(
+                  `ListLift ${activeListing.marketplaceName} Listing (Score ${activeListing.score.score}/100):\n\n${editableTitles[activeListing.marketplace] ?? activeListing.title}\n\nBullets:\n${activeListing.bullets.map((b) => `• ${b}`).join('\n')}\n\nCreate yours free: https://listlift.com/studio`,
+                )}`}
+                target="_blank"
+                rel="noopener"
+                class="btn btn-secondary btn-sm"
+                onClick={() => trackEvent('share', { channel: 'whatsapp', market: activeListing.marketplace })}
+              >
+                Share on WhatsApp
+              </a>
+              <button type="button" class="btn btn-ghost btn-sm" onClick={createShareLink}>
+                Copy Desktop Link
+              </button>
+            </div>
+          </div>
 
           <p class="muted" style={{ margin: 0, fontSize: '0.78rem', lineHeight: 1.5 }}>
             <strong>Transparency note:</strong> ListLift optimizes your listing to match verified marketplace rules, buyer search terms, and claim-safety guidelines. Ranking and sales performance also depend on pricing, reviews, stock, and buyer demand, so no tool can guarantee #1 placement.

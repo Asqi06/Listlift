@@ -45,6 +45,13 @@ export default function ListingScorer() {
 
   useEffect(() => {
     try {
+      const params = new URLSearchParams(window.location.search);
+      const m = params.get('m') as MarketplaceId | null;
+      if (m && SKILLS.some((s) => s.marketplace === m)) setMarketplace(m);
+      const u = params.get('url');
+      if (u && /^https?:\/\//i.test(u)) {
+        setProductUrl(u);
+      }
       const raw = localStorage.getItem('listlift_autofill_latest');
       if (raw) {
         const parsed = JSON.parse(raw) as SyncedStudioDraft;

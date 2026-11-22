@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroWorkbench from '../components/funnel/HeroWorkbench.tsx';
+import SmartCommandBar from '../components/lift/SmartCommandBar.tsx';
+import HeroScoreCard from '../components/lift/HeroScoreCard.tsx';
 import RoiCalculator from '../components/funnel/RoiCalculator.tsx';
 import PricingSection from '../components/funnel/PricingSection.tsx';
 import { getAllMarketplaceSkills } from '@listlift/skills';
@@ -110,38 +111,24 @@ const jsonLd = [
   description="Turn 1 product photo into keyword-rich, rule-checked listings for Amazon, Etsy, eBay, Shopify, Walmart, Flipkart, Meesho, and Shopee, then auto-fill any seller portal in 1 click."
   jsonLd={jsonLd}
 >
-  <!-- Editorial Split Hero -->
-  <section class="hero-band">
-    <div class="container hero-grid">
-      <div class="hero-copy">
-        <h1 data-hero-stagger>
-          From 1 product photo to <span class="serif-accent">published in 2 minutes.</span>
+  <!-- LIFT Signature Dark-Ink Hero Stage (#0B0D12 + Electric Lime #B8FF3B + Subtle Grain) -->
+  <section class="hero-band lift-ink-hero">
+    <div class="container hero-lift-grid">
+      <div class="hero-lift-main">
+        <h1 class="lift-h1" data-hero-stagger>
+          Drop 1 photo. Watch your listing <span class="lift-accent-word">lift.</span>
         </h1>
-        <p class="hero-lead" data-hero-stagger>
-          Upload a product photo and get search-ready titles, bullets, tags, and exact portal fields for 8 global marketplaces. Then click once in the ListLift Chrome Extension to fill your seller portal or custom store without manual copy-pasting.
+        <p class="lift-lead" data-hero-stagger>
+          Turn a single product photo into search-ready titles, bullets, tags, and exact portal fields across 9 global marketplaces &amp; Custom Stores. Then click once in the Chrome/Edge Extension to auto-fill your seller dashboard.
         </p>
-        <div class="hero-actions" data-hero-stagger>
-          <a href="/studio" class="btn btn-primary">Open Listing Studio (Free)</a>
-          <a href="/autofill" class="btn btn-secondary">Install 1-Click Auto-Fill Extension</a>
+
+        <div data-hero-stagger>
+          <SmartCommandBar client:load />
         </div>
-        <dl class="hero-facts" data-hero-stagger>
-          <div>
-            <dt>Global marketplaces</dt>
-            <dd class="mono">8 built-in</dd>
-          </div>
-          <div>
-            <dt>Free daily runs</dt>
-            <dd class="mono">3 Studio / day</dd>
-          </div>
-          <div>
-            <dt>Pro plan</dt>
-            <dd class="mono">$7.50 / mo</dd>
-          </div>
-        </dl>
       </div>
 
-      <div class="hero-stage" data-hero-stagger>
-        <HeroWorkbench client:load />
+      <div class="hero-lift-proof" data-hero-stagger>
+        <HeroScoreCard client:load />
       </div>
     </div>
   </section>
@@ -306,6 +293,59 @@ const jsonLd = [
 </BaseLayout>
 
 <style>
+  .lift-ink-hero {
+    position: relative;
+    background: #0B0D12;
+    color: #F5F7FA;
+    padding: clamp(36px, 5vw, 68px) 0 clamp(44px, 6vw, 76px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+  }
+  .lift-ink-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.75) 1px, transparent 0);
+    background-size: 20px 20px;
+  }
+  .hero-lift-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.95fr);
+    gap: clamp(24px, 4vw, 48px);
+    align-items: center;
+  }
+  .hero-lift-main {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .lift-h1 {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: clamp(2.35rem, 5.2vw, 4.1rem);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    color: #F5F7FA;
+  }
+  .lift-accent-word {
+    color: #B8FF3B;
+  }
+  .lift-lead {
+    margin: 0;
+    max-width: 58ch;
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: #9BA3B4;
+  }
+  @media (max-width: 960px) {
+    .hero-lift-grid {
+      grid-template-columns: 1fr;
+    }
+  }
   .hero-band {
     padding: var(--space-12) 0 var(--space-16);
   }
