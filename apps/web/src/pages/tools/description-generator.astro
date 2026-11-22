@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DescriptionGenerator from '../../components/tools/DescriptionGenerator.tsx';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'ListLift Product Description & Bullets Generator',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+};
+---
+
+<BaseLayout
+  title="Product Description & Bullet Points Generator"
+  description="Generate claim-safe short descriptions, long descriptions, and marketplace-fitted bullet points for Amazon, Etsy, Shopify, Flipkart, and more."
+  jsonLd={jsonLd}
+>
+  <div class="container" style="padding-top: var(--space-8);">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span><span aria-current="page">Description + Bullets</span>
+    </nav>
+    <h1>Product Description + Bullets Generator</h1>
+    <p class="muted" style="max-width: 66ch; margin-bottom: var(--space-6);">
+      Turn raw product specs into scannable bullet points and conversion-ready descriptions without inventing unsupported features.
+    </p>
+    <DescriptionGenerator client:load />
+  </div>
+</BaseLayout>

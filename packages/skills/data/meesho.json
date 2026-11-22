@@ -1,0 +1,37 @@
+{
+  "marketplace": "meesho",
+  "display_name": "Meesho",
+  "region": "India",
+  "version": "2026-11-22",
+  "last_verified": "2026-11-22",
+  "verification_status": "needs_official_verify",
+  "source_docs": [
+    "https://supplier.meesho.com/sell-online"
+  ],
+  "fields": {
+    "title": {
+      "label": "Product Name",
+      "min": 15,
+      "max": 150,
+      "recommended_max": 100,
+      "required": true,
+      "notes": "Simple, search-friendly product name with fabric/material, colour, and pack count."
+    },
+    "description": {
+      "label": "Product Description",
+      "min": 80,
+      "max": 2000,
+      "required": true,
+      "notes": "List fabric/material, size/fit, wash care, and exact pack contents."
+    }
+  },
+  "banned_patterns": [
+    "lowest price",
+    "guaranteed #1",
+    "free shipping",
+    "first copy",
+    "replica"
+  ],
+  "style_notes": "Clear, everyday buyer terms; highlight material, size, colour, and occasion cleanly without promotional hype.",
+  "export_template": "meesho_csv_v1"
+}

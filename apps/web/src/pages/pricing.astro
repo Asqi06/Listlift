@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PricingSection from '../components/funnel/PricingSection.tsx';
+import RoiCalculator from '../components/funnel/RoiCalculator.tsx';
+---
+
+<BaseLayout
+  title="Pricing — Free Public Tools, Pro & Business Plans"
+  description="ListLift pricing in USD and INR: free public tools without signup, Pro from $7.50/mo annual (₹249/mo), and Business for agencies with 500-row Bulk CSV and 3 seats."
+>
+  <div class="container" style="padding-top: var(--space-10);">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a><span>/</span><span aria-current="page">Pricing</span>
+    </nav>
+
+    <div style="max-width: 66ch; margin-bottom: var(--space-8);">
+      <h1 style="font-size: clamp(2rem, 4vw, 3rem); margin-bottom: var(--space-3);">
+        Pricing built for <span class="serif-accent">real seller margins.</span>
+      </h1>
+      <p class="muted" style="margin: 0;">
+        Every public tool works free without an account. Upgrade when you want deep 15-source research, Bulk CSV, Brand Voice profiles, or team seats. Cancel anytime.
+      </p>
+    </div>
+
+    <PricingSection client:load />
+
+    <section style="margin-top: var(--space-16); padding-top: var(--space-12); border-top: 1px solid var(--border);">
+      <h2 style="font-size: clamp(1.5rem, 2.8vw, 2rem); margin-bottom: var(--space-6);">
+        Estimate your monthly payback
+      </h2>
+      <RoiCalculator client:visible />
+    </section>
+  </div>
+</BaseLayout>

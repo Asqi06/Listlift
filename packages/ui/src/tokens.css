@@ -1,0 +1,127 @@
+/* ListLift Design System — "Editorial Commerce Ledger"
+   Warm Alabaster Paper · Obsidian Ink · Forest Emerald Proof */
+:root {
+  color-scheme: light;
+
+  /* Core Surfaces */
+  --bg: #FAF9F5;
+  --surface: #FFFFFF;
+  --elevated: #FFFFFF;
+  --subtle: #F2EFE9;
+
+  /* Typography Ink */
+  --text: #111214;
+  --muted: #52555E;
+  --border: #E5E1D8;
+  --border-strong: #CEC8BC;
+
+  /* Deliberate Palette: Forest Emerald (proof & action) + Warm Ochre (alerts) */
+  --primary: #0B7A53;
+  --primary-hover: #086141;
+  --primary-soft: rgba(11, 122, 83, 0.1);
+  --primary-text: #065F40;
+
+  --ink-btn: #111214;
+  --ink-btn-hover: #262930;
+
+  --success: #0B7A53;
+  --success-soft: rgba(11, 122, 83, 0.11);
+  --warning: #B45309;
+  --warning-soft: #FEF3C7;
+  --danger: #B91C1C;
+  --danger-soft: #FEE2E2;
+
+  /* Offset soft shadows — reserved strictly for floating menus & primary workbench */
+  --shadow-sm: 0 1px 2px rgba(17, 18, 20, 0.05);
+  --shadow-md: 0 10px 28px -10px rgba(17, 18, 20, 0.09), 0 2px 6px -2px rgba(17, 18, 20, 0.04);
+  --shadow-lg: 0 24px 48px -16px rgba(17, 18, 20, 0.14);
+
+  /* Editorial Typography */
+  --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-heading: 'Bricolage Grotesque', system-ui, -apple-system, sans-serif;
+  --font-ui: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Spacing Scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 88px;
+
+  /* Deliberate Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-pill: 9999px;
+
+  /* Emil Kowalski exponential ease-out & drawer curves */
+  --ease-out: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --container-max: 1180px;
+  --header-h: 64px;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0D0F12;
+  --surface: #14171C;
+  --elevated: #1A1E25;
+  --subtle: #1D2129;
+  --text: #F3F4F6;
+  --muted: #9CA3AF;
+  --border: #262B35;
+  --border-strong: #373E4C;
+  --primary: #10B981;
+  --primary-hover: #059669;
+  --primary-soft: rgba(16, 185, 129, 0.14);
+  --primary-text: #34D399;
+  --ink-btn: #F3F4F6;
+  --ink-btn-hover: #E5E7EB;
+  --success: #34D399;
+  --success-soft: rgba(52, 211, 153, 0.15);
+  --warning: #FBBF24;
+  --warning-soft: rgba(251, 191, 36, 0.16);
+  --danger: #F87171;
+  --danger-soft: rgba(248, 113, 113, 0.16);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 12px 32px -12px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 24px 56px -16px rgba(0, 0, 0, 0.72);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --bg: #0D0F12;
+    --surface: #14171C;
+    --elevated: #1A1E25;
+    --subtle: #1D2129;
+    --text: #F3F4F6;
+    --muted: #9CA3AF;
+    --border: #262B35;
+    --border-strong: #373E4C;
+    --primary: #10B981;
+    --primary-hover: #059669;
+    --primary-soft: rgba(16, 185, 129, 0.14);
+    --primary-text: #34D399;
+    --ink-btn: #F3F4F6;
+    --ink-btn-hover: #E5E7EB;
+    --success: #34D399;
+    --success-soft: rgba(52, 211, 153, 0.15);
+    --warning: #FBBF24;
+    --warning-soft: rgba(251, 191, 36, 0.16);
+    --danger: #F87171;
+    --danger-soft: rgba(248, 113, 113, 0.16);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 12px 32px -12px rgba(0, 0, 0, 0.55);
+    --shadow-lg: 0 24px 56px -16px rgba(0, 0, 0, 0.72);
+  }
+}

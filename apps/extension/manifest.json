@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "ListLift Universal Auto-Fill Agent",
+  "version": "2.1.0",
+  "description": "Universal 1-click semantic auto-fill agent for Amazon, Etsy, Shopify, eBay, Flipkart, Meesho, Walmart, Shopee & any custom website.",
+  "permissions": ["storage", "activeTab", "scripting", "tabs"],
+  "host_permissions": [
+    "http://localhost:*/*",
+    "http://127.0.0.1:*/*",
+    "https://listlift.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "ListLift Universal Auto-Fill Agent"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://localhost:*/*",
+        "http://127.0.0.1:*/*",
+        "https://listlift.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

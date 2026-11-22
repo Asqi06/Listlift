@@ -1,0 +1,55 @@
+{
+  "marketplace": "amazon",
+  "display_name": "Amazon",
+  "region": "Global / India",
+  "version": "2026-11-22",
+  "last_verified": "2026-11-22",
+  "verification_status": "needs_official_verify",
+  "source_docs": [
+    "https://sellercentral.amazon.com/help/hub/reference/external/GYTR6SYGFA5E3EQC"
+  ],
+  "fields": {
+    "title": {
+      "label": "Product Title",
+      "min": 30,
+      "max": 200,
+      "recommended_max": 150,
+      "required": true,
+      "notes": "Varies by category (many categories cap at 200 chars); avoid promotional phrases and ALL CAPS."
+    },
+    "bullets": {
+      "label": "Bullet Points",
+      "count_max": 5,
+      "each_max": 500,
+      "recommended_max": 250,
+      "required": true,
+      "notes": "Up to 5 benefit-led bullets; start each with a concise feature phrase."
+    },
+    "description": {
+      "label": "Product Description",
+      "min": 150,
+      "max": 2000,
+      "required": true,
+      "notes": "Clear, scannable copy; no HTML scripts or external URLs."
+    },
+    "search_terms": {
+      "label": "Backend Search Terms",
+      "max_bytes": 250,
+      "required": false,
+      "notes": "Byte-counted limit (UTF-8 <= 250 bytes); space-separated, no commas or brand names."
+    }
+  },
+  "banned_patterns": [
+    "free shipping",
+    "best seller",
+    "100% guaranteed",
+    "guaranteed #1",
+    "cheap",
+    "sale",
+    "discount",
+    "miracle cure",
+    "fda approved"
+  ],
+  "style_notes": "Title Case, numerals for numbers, Brand + Model + Key Feature + Material + Size + Quantity. Never use promotional text or symbols like ! or *.",
+  "export_template": "amazon_flatfile_v1"
+}

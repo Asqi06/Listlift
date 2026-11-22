@@ -1,0 +1,37 @@
+{
+  "marketplace": "shopee",
+  "display_name": "Shopee / Lazada",
+  "region": "Southeast Asia",
+  "version": "2026-11-22",
+  "last_verified": "2026-11-22",
+  "verification_status": "needs_official_verify",
+  "source_docs": [
+    "https://seller.shopee.sg/edu/article/377"
+  ],
+  "fields": {
+    "title": {
+      "label": "Product Name",
+      "min": 15,
+      "max": 120,
+      "recommended_max": 100,
+      "required": true,
+      "notes": "Formula: Brand + Product Type + Model + Key Spec/Size (max 120 chars)."
+    },
+    "description": {
+      "label": "Product Description",
+      "min": 100,
+      "max": 3000,
+      "required": true,
+      "notes": "Structured specs, dimensions, usage, and warranty info."
+    }
+  },
+  "banned_patterns": [
+    "cheapest",
+    "guaranteed #1",
+    "free gift",
+    "ready stock!!!",
+    "replica"
+  ],
+  "style_notes": "Follow Brand + Product Type + Model + Spec within 120 characters; avoid spammy symbols or ALL CAPS.",
+  "export_template": "shopee_csv_v1"
+}

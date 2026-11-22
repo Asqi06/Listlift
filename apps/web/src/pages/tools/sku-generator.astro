@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SkuGenerator from '../../components/tools/SkuGenerator.tsx';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'ListLift Free SKU Generator',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+};
+---
+
+<BaseLayout
+  title="Free SKU Generator (Batch + Duplicate Check)"
+  description="Create clean, consistent product SKUs with brand prefix, category, color, size, duplicate detection, and instant CSV copy."
+  jsonLd={jsonLd}
+>
+  <div class="container" style="padding-top: var(--space-8);">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <a href="/tools/">Tools</a>
+      <span>/</span>
+      <span aria-current="page">SKU Generator</span>
+    </nav>
+
+    <h1>SKU Generator</h1>
+    <p class="muted" style="max-width: 66ch; margin-bottom: var(--space-6);">
+      Generate readable, consistent Stock Keeping Units (SKUs) across product variants, catch duplicates automatically, and copy clean CSV output.
+    </p>
+
+    <SkuGenerator client:load />
+  </div>
+</BaseLayout>

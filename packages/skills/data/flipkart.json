@@ -1,0 +1,51 @@
+{
+  "marketplace": "flipkart",
+  "display_name": "Flipkart",
+  "region": "India",
+  "version": "2026-11-22",
+  "last_verified": "2026-11-22",
+  "verification_status": "needs_official_verify",
+  "source_docs": [
+    "https://seller.flipkart.com/sell-online/faq"
+  ],
+  "fields": {
+    "title": {
+      "label": "Product Title",
+      "min": 20,
+      "max": 200,
+      "recommended_max": 120,
+      "required": true,
+      "notes": "Include Brand + Product Type + Key Spec + Colour + Pack Size."
+    },
+    "bullets": {
+      "label": "Highlights",
+      "count_max": 5,
+      "each_max": 200,
+      "required": true,
+      "notes": "Concise spec highlights shown near the price on mobile."
+    },
+    "description": {
+      "label": "Description",
+      "min": 100,
+      "max": 3000,
+      "required": true,
+      "notes": "Clear specs, dimensions, box contents, and warranty details."
+    },
+    "search_terms": {
+      "label": "Search Keywords",
+      "count_max": 5,
+      "each_max": 50,
+      "required": false,
+      "notes": "Relevant regional and English buyer search terms."
+    }
+  },
+  "banned_patterns": [
+    "lowest price",
+    "100% original guaranteed",
+    "free delivery",
+    "guaranteed #1",
+    "first copy"
+  ],
+  "style_notes": "Mobile-first clarity for Indian shoppers: Brand + Type + Material/Spec + Colour + Quantity. Avoid price or delivery promises.",
+  "export_template": "flipkart_csv_v1"
+}

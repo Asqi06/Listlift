@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TitleGenerator from '../../components/tools/TitleGenerator.tsx';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'ListLift Ecommerce Title Generator + Checker',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+};
+---
+
+<BaseLayout
+  title="Ecommerce Title Generator + Limit Checker"
+  description="Generate 5 marketplace-ready product titles for Etsy, Amazon, eBay, Shopify, Walmart, Flipkart, Meesho, and Shopee with live limit and keyword checks."
+  jsonLd={jsonLd}
+>
+  <div class="container" style="padding-top: var(--space-8);">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <a href="/tools/">Tools</a>
+      <span>/</span>
+      <span aria-current="page">Title Generator</span>
+    </nav>
+
+    <h1>Title Generator + Checker</h1>
+    <p class="muted" style="max-width: 66ch; margin-bottom: var(--space-6);">
+      Enter your product facts once and get 5 structured title angles fitted to your chosen marketplace's exact character limit and style guidelines.
+    </p>
+
+    <TitleGenerator client:load />
+
+    <section class="card" style="margin-top: var(--space-10);">
+      <h2>How to pick the strongest title angle</h2>
+      <p class="muted">
+        Mobile shoppers see only the first 50–75 characters of a product title in search results. Front-load your primary product noun, material, and size so buyers immediately know what you sell without scrolling.
+      </p>
+    </section>
+  </div>
+</BaseLayout>

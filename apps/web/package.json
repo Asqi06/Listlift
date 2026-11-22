@@ -1,0 +1,29 @@
+{
+  "name": "@listlift/web",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "worker:dev": "wrangler dev",
+    "worker:deploy": "astro build && wrangler deploy"
+  },
+  "dependencies": {
+    "@astrojs/preact": "^4.0.8",
+    "@listlift/core": "workspace:*",
+    "@listlift/skills": "workspace:*",
+    "@listlift/ui": "workspace:*",
+    "astro": "^5.4.0",
+    "gsap": "^3.15.1",
+    "hono": "^4.7.2",
+    "preact": "^10.26.2",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250214.0",
+    "wrangler": "^3.109.0"
+  }
+}

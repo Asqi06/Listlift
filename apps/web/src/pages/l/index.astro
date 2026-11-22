@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ShareViewer from '../../components/tools/ShareViewer.tsx';
+---
+
+<BaseLayout
+  title="Shared Listing Preview"
+  description="Read-only shared ecommerce listing created with ListLift."
+  noindex={true}
+>
+  <div class="container" style="padding-top: var(--space-8);">
+    <ShareViewer client:load />
+  </div>
+</BaseLayout>

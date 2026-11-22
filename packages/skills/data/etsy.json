@@ -1,0 +1,45 @@
+{
+  "marketplace": "etsy",
+  "display_name": "Etsy",
+  "region": "Global",
+  "version": "2026-11-22",
+  "last_verified": "2026-11-22",
+  "verification_status": "needs_official_verify",
+  "source_docs": [
+    "https://help.etsy.com/hc/en-us/articles/115015663987-Search-Engine-Optimization-SEO-for-Shop-and-Listing-Pages"
+  ],
+  "fields": {
+    "title": {
+      "label": "Listing Title",
+      "min": 20,
+      "max": 140,
+      "recommended_max": 120,
+      "required": true,
+      "notes": "Front-load the primary keyword phrase; avoid repeating exact words."
+    },
+    "tags": {
+      "label": "Tags",
+      "count_max": 13,
+      "each_max": 20,
+      "required": false,
+      "notes": "Use all 13 multi-word tags; each tag up to 20 characters."
+    },
+    "description": {
+      "label": "Description",
+      "min": 120,
+      "max": 10000,
+      "required": true,
+      "notes": "Put key specs, dimensions, materials, and care instructions in the first 160 characters."
+    }
+  },
+  "banned_patterns": [
+    "guaranteed #1",
+    "best seller",
+    "free shipping",
+    "miracle cure",
+    "treats cancer",
+    "fda approved"
+  ],
+  "style_notes": "Front-load the main keyword; natural readable phrasing; no keyword stuffing; use all 13 tags with distinct multi-word phrases.",
+  "export_template": "etsy_csv_v1"
+}

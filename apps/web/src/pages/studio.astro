@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ListingStudio from '../components/tools/ListingStudio.tsx';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'ListLift Listing Studio',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+};
+---
+
+<BaseLayout
+  title="Listing Studio — Multi-Marketplace AI Listing Generator"
+  description="Upload a product photo, enter product facts or competitor URLs, and generate complete rule-checked listings across Amazon, Etsy, eBay, Shopify, Walmart, Flipkart, Meesho, and Shopee."
+  jsonLd={jsonLd}
+>
+  <div class="container" style="padding-top: var(--space-8);">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <span aria-current="page">Listing Studio</span>
+    </nav>
+
+    <h1>Listing Studio</h1>
+    <p class="muted" style="max-width: 68ch; margin-bottom: var(--space-6);">
+      One product input → complete, marketplace-specific listings with live score gauge, grounded claims audit, competitor evidence panel, CSV/JSON export, and read-only client share links.
+    </p>
+
+    <ListingStudio client:load />
+  </div>
+</BaseLayout>

@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ListingScorer from '../../components/tools/ListingScorer.tsx';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'ListLift Listing Score Linter',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+};
+---
+
+<BaseLayout
+  title="Listing Score (0–100 Marketplace Linter)"
+  description="Paste your existing product listing to get a 0–100 score, field limit validation, banned phrase warnings, and a clear fix checklist."
+  jsonLd={jsonLd}
+>
+  <div class="container" style="padding-top: var(--space-8);">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <a href="/tools/">Tools</a>
+      <span>/</span>
+      <span aria-current="page">Listing Score</span>
+    </nav>
+
+    <h1>Listing Score (Linter)</h1>
+    <p class="muted" style="max-width: 66ch; margin-bottom: var(--space-6);">
+      Audit an existing listing against marketplace limits, unused tag slots, repeated title words, and prohibited claims before you publish.
+    </p>
+
+    <ListingScorer client:load />
+  </div>
+</BaseLayout>

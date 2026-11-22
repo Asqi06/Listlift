@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SELLER_GUIDES } from '../../data/guides';
+---
+
+<BaseLayout
+  title="Ecommerce Seller Guides & Marketplace Playbooks"
+  description="Practical, no-fluff guides on Etsy 13-tag SEO, Amazon UTF-8 byte limits, eBay 80-character titles, Flipkart & Meesho listings, SKU systems, and claim-safe compliance."
+>
+  <div class="container" style="padding-top: var(--space-8);">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a><span>/</span><span aria-current="page">Guides</span>
+    </nav>
+
+    <h1>Seller Guides &amp; Playbooks</h1>
+    <p class="muted" style="max-width: 65ch; margin-bottom: var(--space-8);">
+      Actionable, rule-grounded playbooks written for solo sellers, Indian resellers, and multi-marketplace agencies.
+    </p>
+
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: var(--space-5);">
+      {
+        SELLER_GUIDES.map((g) => (
+          <a href={`/guides/${g.slug}`} class="card card-interactive" style="text-decoration:none; color:var(--text); display:flex; flex-direction:column; gap:10px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span class="badge badge-neutral">{g.category}</span>
+              <span class="muted mono" style="font-size:0.76rem;">{g.readTime}</span>
+            </div>
+            <h2 style="font-size:1.18rem; margin: 4px 0 0;">{g.title}</h2>
+            <p class="muted" style="margin:0; font-size:0.9rem;">{g.description}</p>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>

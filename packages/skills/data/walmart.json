@@ -1,0 +1,44 @@
+{
+  "marketplace": "walmart",
+  "display_name": "Walmart",
+  "region": "US / Global",
+  "version": "2026-11-22",
+  "last_verified": "2026-11-22",
+  "verification_status": "needs_official_verify",
+  "source_docs": [
+    "https://sellerhelp.walmart.com/s/guide?article=000007860"
+  ],
+  "fields": {
+    "title": {
+      "label": "Product Name",
+      "min": 20,
+      "max": 200,
+      "recommended_max": 75,
+      "required": true,
+      "notes": "Walmart recommends 50-75 characters: Brand + Defining Quality + Item Name + Style/Pack Count."
+    },
+    "bullets": {
+      "label": "Key Features",
+      "count_max": 10,
+      "each_max": 80,
+      "required": true,
+      "notes": "Short, scannable key feature bullets."
+    },
+    "description": {
+      "label": "Site Description",
+      "min": 150,
+      "max": 4000,
+      "required": true,
+      "notes": "Include primary keyword naturally and concrete product specs."
+    }
+  },
+  "banned_patterns": [
+    "free shipping",
+    "best seller",
+    "guaranteed #1",
+    "rollback",
+    "clearance"
+  ],
+  "style_notes": "Concise 50-75 char title; no promotional claims or retailer-specific terms like Rollback.",
+  "export_template": "walmart_csv_v1"
+}

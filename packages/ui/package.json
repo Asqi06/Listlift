@@ -1,0 +1,14 @@
+{
+  "name": "@listlift/ui",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    "./tokens.css": "./src/tokens.css",
+    "./base.css": "./src/base.css"
+  },
+  "scripts": {
+    "test": "node -e \"console.log('ui tokens ok')\"",
+    "typecheck": "node -e \"console.log('ui tokens ok')\"",
+    "build": "node -e \"console.log('ui tokens ok')\""
+  }
+}

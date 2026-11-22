@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllMarketplaceSkills, type MarketplaceSkill } from '@listlift/skills';
+
+export function getStaticPaths() {
+  return getAllMarketplaceSkills().map((skill) => ({
+    params: { slug: skill.marketplace },
+    props: { skill },
+  }));
+}
+
+interface Props {
+  skill: MarketplaceSkill;
+}
+
+const { skill } = Astro.props;
+const fieldEntries = Object.entries(skill.fields).filter(([, rule]) => rule !== undefined);
+---
+
+<BaseLayout
+  title={`${skill.display_name} Listing Rules & Character Limits`}
+  description={`Verified ${skill.display_name} listing rules: title limits, tag counts, prohibited phrases, style notes, and free validation tools.`}
+>
+  <div class="container" style="padding-top: var(--space-8);">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <a href="/tools/">Marketplaces</a>
+      <span>/</span>
+      <span aria-current="page">{skill.display_name}</span>
+    </nav>
+
+    <div style="display:flex; flex-wrap:wrap; align-items:center; gap: 12px; margin-bottom: var(--space-3);">
+      <h1 style="margin:0;">{skill.display_name} Listing Rules &amp; Limits</h1>
+      <span class="badge badge-neutral">Region: {skill.region}</span>
+      <span class="badge badge-pass">Verified: {skill.last_verified}</span>
+    </div>
+
+    <p class="muted" style="max-width: 70ch; margin-bottom: var(--space-6);">
+      {skill.style_notes}
+    </p>
+
+    <div class="card" style="margin-bottom: var(--space-6);">
+      <h2>Field Limits</h2>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Required</th>
+              <th>Limit</th>
+              <th>Recommended</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              fieldEntries.map(([, rule]) => (
+                <tr>
+                  <td><strong>{rule!.label}</strong></td>
+                  <td>{rule!.required ? 'Yes' : 'Optional'}</td>
+                  <td class="mono">
+                    {rule!.count_max
+                      ? `${rule!.count_max} × ${rule!.each_max ?? '—'} chars`
+                      : rule!.max_bytes
+                        ? `${rule!.max_bytes} UTF-8 bytes`
+                        : `${rule!.max ?? '—'} chars`}
+                  </td>
+                  <td class="mono">{rule!.recommended_max ? `≤ ${rule!.recommended_max}` : '—'}</td>
+                  <td class="muted">{rule!.notes ?? '—'}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-wrap:wrap; gap: var(--space-3);">
+      <a href="/tools/title-generator" class="btn btn-primary">Generate {skill.display_name} Titles</a>
+      <a href="/tools/character-counter" class="btn btn-secondary">Check {skill.display_name} Limits</a>
+      <a href="/tools/listing-score" class="btn btn-secondary">Score a {skill.display_name} Listing</a>
+    </div>
+  </div>
+</BaseLayout>

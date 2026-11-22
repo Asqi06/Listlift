@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="ListLift Privacy Policy: GDPR & India DPDP-ready data handling, 24-hour image auto-deletion, and zero AI model training on user content."
+>
+  <div class="container" style="padding-top: var(--space-8); max-width: 780px;">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a><span>/</span><span aria-current="page">Privacy Policy</span>
+    </nav>
+    <h1>Privacy Policy</h1>
+    <div class="card" style="display:flex; flex-direction:column; gap:14px;">
+      <p><strong>Effective date:</strong> 22 November 2026</p>
+      <h2>1. Zero Training on Your Content</h2>
+      <p class="muted">Product photos, titles, SKUs, and drafts you enter into ListLift are never sold and never used to train AI models.</p>
+      <h2>2. Image Handling &amp; 24-Hour Retention</h2>
+      <p class="muted">Product images are resized locally in your browser to WebP (max 1024px). Any temporary server-side uploads for free/anonymous users are auto-deleted within 24 hours.</p>
+      <h2>3. Cookies &amp; Analytics</h2>
+      <p class="muted">We store a single functional cookie (`ll_theme`) to remember your light/dark mode preference. Privacy-friendly web analytics do not track you across sites.</p>
+      <h2>4. Your Rights (GDPR &amp; India DPDP)</h2>
+      <p class="muted">You may request access to or deletion of your account data at any time via our <a href="/contact">Contact page</a>.</p>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllMarketplaceSkills } from '@listlift/skills';
+
+const skills = getAllMarketplaceSkills();
+---
+
+<BaseLayout
+  title="Free Ecommerce Listing Tools Hub (All 8 Launch Tools)"
+  description="Explore all 8 free ListLift ecommerce tools: Listing Studio, Title Generator, Description & Bullets, Tags Generator, SKU Generator, Listing Score, Competitor Compare, and Character Counter."
+>
+  <div class="container" style="padding-top: var(--space-10);">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">Tools</span>
+    </nav>
+
+    <h1>Free Ecommerce Listing Tools</h1>
+    <p class="muted" style="max-width: 65ch; margin-bottom: var(--space-8);">
+      Every tool runs immediately without signup and enforces versioned marketplace rules.
+    </p>
+
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-12);">
+      <a href="/studio" class="card card-interactive" style="text-decoration:none; color:var(--text);">
+        <span class="badge badge-pass">FLAGSHIP</span>
+        <h2 style="font-size:1.18rem; margin: 10px 0 6px;">Listing Studio</h2>
+        <p class="muted" style="margin:0;">Full multi-marketplace workflow with image resize, evidence panel, exports &amp; share links.</p>
+      </a>
+      <a href="/tools/title-generator" class="card card-interactive" style="text-decoration:none; color:var(--text);">
+        <span class="badge badge-neutral">TITLES</span>
+        <h2 style="font-size:1.18rem; margin: 10px 0 6px;">Title Generator + Checker</h2>
+        <p class="muted" style="margin:0;">5 title angles tailored to marketplace limits with keyword coverage.</p>
+      </a>
+      <a href="/tools/description-generator" class="card card-interactive" style="text-decoration:none; color:var(--text);">
+        <span class="badge badge-neutral">COPY</span>
+        <h2 style="font-size:1.18rem; margin: 10px 0 6px;">Description + Bullets</h2>
+        <p class="muted" style="margin:0;">Generate short hooks, long descriptions, and benefit-led bullets in 3 tones.</p>
+      </a>
+      <a href="/tools/tags-generator" class="card card-interactive" style="text-decoration:none; color:var(--text);">
+        <span class="badge badge-neutral">KEYWORDS</span>
+        <h2 style="font-size:1.18rem; margin: 10px 0 6px;">Tags &amp; Keywords Generator</h2>
+        <p class="muted" style="margin:0;">Fill all 13 Etsy tag slots (≤20 chars) and deduplicated 250-byte Amazon terms.</p>
+      </a>
+      <a href="/tools/sku-generator" class="card card-interactive" style="text-decoration:none; color:var(--text);">
+        <span class="badge badge-neutral">INVENTORY</span>
+        <h2 style="font-size:1.18rem; margin: 10px 0 6px;">SKU Generator</h2>
+        <p class="muted" style="margin:0;">Batch SKU builder with duplicate detection and CSV copy.</p>
+      </a>
+      <a href="/tools/listing-score" class="card card-interactive" style="text-decoration:none; color:var(--text);">
+        <span class="badge badge-pass">LINTER</span>
+        <h2 style="font-size:1.18rem; margin: 10px 0 6px;">Listing Score (0–100)</h2>
+        <p class="muted" style="margin:0;">Score existing listings for limits, banned phrases, and unused tag slots.</p>
+      </a>
+      <a href="/tools/competitor-compare" class="card card-interactive" style="text-decoration:none; color:var(--text);">
+        <span class="badge badge-neutral">RESEARCH</span>
+        <h2 style="font-size:1.18rem; margin: 10px 0 6px;">Competitor Compare</h2>
+        <p class="muted" style="margin:0;">Compare 2–10 listings for price band (min/median/max) and keyword gaps.</p>
+      </a>
+      <a href="/tools/character-counter" class="card card-interactive" style="text-decoration:none; color:var(--text);">
+        <span class="badge badge-neutral">LIMITS</span>
+        <h2 style="font-size:1.18rem; margin: 10px 0 6px;">Character &amp; Byte Counter</h2>
+        <p class="muted" style="margin:0;">Live character and UTF-8 byte checks for titles, descriptions, and search terms.</p>
+      </a>
+    </div>
+
+    <h2>Marketplace Rule Hubs</h2>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4);">
+      {
+        skills.map((s) => (
+          <a href={`/marketplaces/${s.marketplace}`} class="card card-interactive" style="text-decoration:none; color:var(--text);">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <strong>{s.display_name}</strong>
+              <span class="badge badge-neutral">{s.region}</span>
+            </div>
+            <p class="muted" style="margin: 8px 0 0; font-size:0.875rem;">
+              Title limit: <span class="mono">{s.fields.title.max} chars</span>
+            </p>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>

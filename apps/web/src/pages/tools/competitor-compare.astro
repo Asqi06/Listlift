@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CompetitorCompare from '../../components/tools/CompetitorCompare.tsx';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'ListLift Competitor Compare & Price Band Matrix',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+};
+---
+
+<BaseLayout
+  title="Competitor Listing Compare & Keyword Gap Matrix"
+  description="Compare 2–10 competitor listings side by side to uncover price bands (min/median/max), title patterns, and missing keyword gaps."
+  jsonLd={jsonLd}
+>
+  <div class="container" style="padding-top: var(--space-8);">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span><span aria-current="page">Competitor Compare</span>
+    </nav>
+    <h1>Competitor Compare</h1>
+    <p class="muted" style="max-width: 66ch; margin-bottom: var(--space-6);">
+      Paste 2 to 10 competitor listings to see their title lengths, price band (min/median/max), and high-frequency keywords missing from your own listing.
+    </p>
+    <CompetitorCompare client:load />
+  </div>
+</BaseLayout>

@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CharacterCounter from '../../components/tools/CharacterCounter.tsx';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'ListLift Marketplace Character Counter & Limit Checker',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+};
+---
+
+<BaseLayout
+  title="Marketplace Character Counter & Limit Checker"
+  description="Check exact title, description, SEO meta, and UTF-8 byte limits for Amazon, Etsy, eBay, Shopify, Walmart, Flipkart, Meesho, and Shopee."
+  jsonLd={jsonLd}
+>
+  <div class="container" style="padding-top: var(--space-8);">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <a href="/tools/">Tools</a>
+      <span>/</span>
+      <span aria-current="page">Character Counter</span>
+    </nav>
+
+    <h1>Marketplace Character Counter &amp; Limit Checker</h1>
+    <p class="muted" style="max-width: 66ch; margin-bottom: var(--space-6);">
+      Verify character counts and UTF-8 byte limits before uploading. All limits are loaded directly from ListLift's versioned marketplace skills.
+    </p>
+
+    <CharacterCounter client:load />
+
+    <section class="card" style="margin-top: var(--space-10);">
+      <h2>Why character and byte limits matter</h2>
+      <p class="muted">
+        Marketplaces truncate or reject fields that exceed their caps. On Amazon, backend search terms are counted in UTF-8 bytes rather than visual characters — non-Latin scripts like Devanagari or symbols consume 2–4 bytes per character. Checking both counts prevents silent truncation.
+      </p>
+      <p style="margin-bottom:0;">
+        Next step: <a href="/tools/title-generator">Generate 5 rule-checked title options →</a> or <a href="/tools/listing-score">Score your full listing →</a>
+      </p>
+    </section>
+  </div>
+</BaseLayout>

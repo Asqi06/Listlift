@@ -1,0 +1,115 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <strong class="footer-brand">ListLift</strong>
+      <p class="muted footer-tagline">
+        The only ecommerce listing platform that shows its homework. Multi-marketplace, claim-safe, and free to try without signup.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="footer-heading">Tools</h3>
+      <ul class="footer-list">
+        <li><a href="/studio">Listing Studio (Flagship)</a></li>
+        <li><a href="/tools/title-generator">Title Generator + Checker</a></li>
+        <li><a href="/tools/description-generator">Description + Bullets</a></li>
+        <li><a href="/tools/tags-generator">Tags &amp; Keywords</a></li>
+        <li><a href="/tools/sku-generator">SKU Generator</a></li>
+        <li><a href="/tools/listing-score">Listing Score (Linter)</a></li>
+        <li><a href="/tools/competitor-compare">Competitor Compare</a></li>
+        <li><a href="/tools/character-counter">Character Counter</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="footer-heading">Marketplaces</h3>
+      <ul class="footer-list">
+        <li><a href="/marketplaces/amazon">Amazon</a></li>
+        <li><a href="/marketplaces/etsy">Etsy</a></li>
+        <li><a href="/marketplaces/ebay">eBay</a></li>
+        <li><a href="/marketplaces/shopify">Shopify</a></li>
+        <li><a href="/marketplaces/walmart">Walmart</a></li>
+        <li><a href="/marketplaces/flipkart">Flipkart (India)</a></li>
+        <li><a href="/marketplaces/meesho">Meesho (India)</a></li>
+        <li><a href="/marketplaces/shopee">Shopee / Lazada</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="footer-heading">Company &amp; Legal</h3>
+      <ul class="footer-list">
+        <li><a href="/guides/">Seller Guides</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="/about">About ListLift</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <p class="muted disclaimer">
+      © {year} ListLift. Not affiliated with, endorsed by, or sponsored by Amazon, Etsy, eBay, Shopify, Walmart, Flipkart, Meesho, or Shopee/Lazada. All generated copy is a draft — verify factual specifications and current marketplace policies before publishing. ListLift never trains AI models on your uploaded images or product drafts.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--space-16);
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+    padding: var(--space-12) 0 var(--space-8);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-8);
+  }
+  .footer-brand {
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+  }
+  .footer-tagline {
+    margin-top: var(--space-2);
+    font-size: 0.9rem;
+    max-width: 32ch;
+  }
+  .footer-heading {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: var(--space-3);
+  }
+  .footer-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.875rem;
+  }
+  .footer-list a {
+    color: var(--text);
+  }
+  .footer-list a:hover {
+    color: var(--primary);
+  }
+  .footer-bottom {
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--border);
+  }
+  .disclaimer {
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.55;
+  }
+</style>

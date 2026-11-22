@@ -1,0 +1,38 @@
+{
+  "marketplace": "ebay",
+  "display_name": "eBay",
+  "region": "Global",
+  "version": "2026-11-22",
+  "last_verified": "2026-11-22",
+  "verification_status": "needs_official_verify",
+  "source_docs": [
+    "https://www.ebay.com/help/selling/listings/creating-managing-listings/creating-listing?id=4105"
+  ],
+  "fields": {
+    "title": {
+      "label": "Item Title",
+      "min": 20,
+      "max": 80,
+      "recommended_max": 75,
+      "required": true,
+      "notes": "Strict 80-character limit; include brand, model, size, colour, and condition."
+    },
+    "description": {
+      "label": "Item Description",
+      "min": 100,
+      "max": 4000,
+      "required": true,
+      "notes": "State exact condition, measurements, and included accessories."
+    }
+  },
+  "banned_patterns": [
+    "look!",
+    "wow!",
+    "l@@k",
+    "guaranteed #1",
+    "replica",
+    "fake"
+  ],
+  "style_notes": "Pack concrete buyer search terms into 80 characters: Brand + Product + Model/MPN + Size + Colour + Condition. Skip filler punctuation.",
+  "export_template": "ebay_csv_v1"
+}

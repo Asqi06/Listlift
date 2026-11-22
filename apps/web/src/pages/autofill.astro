@@ -1,0 +1,202 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AutoFillSandbox from '../components/funnel/AutoFillSandbox.tsx';
+
+const marketplaceGuides = [
+  {
+    name: 'Amazon Seller Central (Global & Amazon.in)',
+    url: 'sellercentral.amazon.com / sellercentral.amazon.in',
+    portalPath: 'Catalog → Add Products → I’m adding a product not sold on Amazon',
+    fills: 'Item Name (Title), Seller SKU, Product Description, Bullet Points 1–5, Backend Search Terms (≤250 UTF-8 bytes)',
+    bulk: 'Also supports 1-click download of Amazon Flat-File CSV from Listing Studio.',
+  },
+  {
+    name: 'Etsy Shop Manager',
+    url: 'etsy.com/your/shops/me/tools/listings/create',
+    portalPath: 'Shop Manager → Listings → Add a listing',
+    fills: 'Listing Title (≤140 chars), Description, SKU, and all 13 multi-word Tags (≤20 chars each)',
+    bulk: 'OAuth Draft Push (Pro) + Etsy Listing CSV export.',
+  },
+  {
+    name: 'Shopify Admin',
+    url: 'admin.shopify.com → Products → Add product',
+    portalPath: 'Products → Add product (scroll down to open Search engine listing)',
+    fills: 'Title, Rich-Text Description (ProseMirror/TinyMCE), Variant SKU, Product Tags, SEO Page Title (≤60), SEO Meta Description (≤160)',
+    bulk: 'Supports official Shopify Product CSV (Handle, Body HTML, Draft status) for 50–500 rows.',
+  },
+  {
+    name: 'Flipkart Seller Hub (India)',
+    url: 'seller.flipkart.com',
+    portalPath: 'Listings → Add New Listings → Single Listing / Brand Approval Form',
+    fills: 'Product Title, Seller SKU ID, Key Highlights, Detailed Description, Search Keywords',
+    bulk: 'Includes Flipkart Catalog CSV sheet for bulk uploads.',
+  },
+  {
+    name: 'Meesho Supplier Panel (India)',
+    url: 'supplier.meesho.com',
+    portalPath: 'Catalog Uploads → Add Single Catalog',
+    fills: 'Product Name (≤150 chars), Style / SKU Code, Product Description (material, size, wash care)',
+    bulk: 'Includes Meesho Catalog CSV sheet for high-volume resellers.',
+  },
+  {
+    name: 'eBay Seller Hub',
+    url: 'ebay.com/sl/sell',
+    portalPath: 'Sell → Create listing → Item details',
+    fills: 'Item Title (strict ≤80 chars), Custom Label (SKU), Item Description',
+    bulk: 'OAuth Draft Push via eBay Inventory API (Pro) + eBay CSV.',
+  },
+  {
+    name: 'Walmart Seller Center',
+    url: 'seller.walmart.com',
+    portalPath: 'Items → Add Items → Single Item Setup',
+    fills: 'Product Name (50–75 char sweet spot), SKU, Key Features (bullets), Site Description',
+    bulk: 'Walmart CSV export included.',
+  },
+  {
+    name: 'Shopee / Lazada Seller Centre',
+    url: 'seller.shopee.sg / sellercenter.lazada.com',
+    portalPath: 'Products → Add New Product',
+    fills: 'Product Name (≤120 chars), Parent SKU, Product Description',
+    bulk: 'Shopee/Lazada Catalog CSV export included.',
+  },
+];
+
+const devSnippet = `<!-- Optional: Add 1 attribute on any custom admin form for 100% deterministic binding -->
+<input name="custom_heading" data-listlift="title" />
+<input name="internal_code"  data-listlift="sku" />
+<textarea name="summary"     data-listlift="shortDescription"></textarea>
+<textarea name="body"        data-listlift="description"></textarea>
+<input name="meta_title"     data-listlift="seoTitle" />
+<textarea name="meta_desc"   data-listlift="metaDescription"></textarea>`;
+---
+
+<BaseLayout
+  title="Universal Auto-Fill Agent — Connect All Marketplaces & Custom Websites"
+  description="Auto-fill product titles, SKUs, bullets, descriptions, tags, and SEO meta into Amazon, Etsy, Shopify, Flipkart, Meesho, eBay, Walmart, Shopee, or ANY custom external website in 1 click."
+>
+  <div class="container" style="padding-top: var(--space-10);">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a><span>/</span><span aria-current="page">Universal Auto-Fill Agent</span>
+    </nav>
+
+    <div style="max-width: 74ch; margin-bottom: var(--space-8);">
+      <h1 style="font-size: clamp(2rem, 4.2vw, 3.2rem); margin-bottom: var(--space-3);">
+        Works on every marketplace — <span class="serif-accent">and any custom website.</span>
+      </h1>
+      <p class="muted" style="margin: 0 0 var(--space-5); font-size: 1.05rem;">
+        Our Universal Semantic Auto-Fill Agent scans labels, placeholders, ARIA attributes, rich-text editors, and Shadow DOMs in your active browser tab to figure out every field automatically. Zero passwords shared. You review &amp; click Publish.
+      </p>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+        <a href="/downloads/listlift-extension.zip" download="listlift-extension.zip" class="btn btn-primary">
+          Download Chrome Extension (.zip · 7 KB)
+        </a>
+        <a href="/studio" class="btn btn-secondary">
+          Open Listing Studio
+        </a>
+        <span class="muted mono" style="font-size: 0.78rem;">
+          Chrome · Edge · Brave (Manifest V3)
+        </span>
+      </div>
+    </div>
+
+    <!-- Crystal-clear 3-Step Visual Flow -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: var(--space-8);">
+      <div class="card" style="background: var(--subtle);">
+        <strong style="display: block; margin-bottom: 4px;">Step 1 · Generate in Studio</strong>
+        <span class="muted" style="font-size: 0.86rem;">Drop 1 photo or type 1 line in Listing Studio and click <strong>Send to Auto-Fill Agent</strong>.</span>
+      </div>
+      <div class="card" style="background: var(--subtle);">
+        <strong style="display: block; margin-bottom: 4px;">Step 2 · Open Your Seller Portal</strong>
+        <span class="muted" style="font-size: 0.86rem;">Go to Amazon, Flipkart, Meesho, Etsy, Shopify, or any custom admin panel’s "Add Product" tab.</span>
+      </div>
+      <div class="card" style="background: var(--subtle);">
+        <strong style="display: block; margin-bottom: 4px;">Step 3 · Click Extension → Publish</strong>
+        <span class="muted" style="font-size: 0.86rem;">Click the ListLift icon → every field auto-fills in 0.4s with green highlight + Undo. Review &amp; hit Publish.</span>
+      </div>
+    </div>
+
+    <!-- Live Universal Semantic Sandbox -->
+    <AutoFillSandbox client:load />
+
+    <!-- Quick 4-Step Install Guide -->
+    <section class="card" style="margin-top: var(--space-12);">
+      <h2 style="margin-bottom: var(--space-4);">Install the Chrome / Edge / Brave Auto-Fill Agent (30 seconds)</h2>
+      <ol style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 10px; font-size: 0.95rem;">
+        <li>Open <code>chrome://extensions</code> (or <code>edge://extensions</code>) and enable <strong>Developer mode</strong>.</li>
+        <li>Click <strong>Load unpacked</strong> and select the <code>apps/extension</code> folder from this repository (Chrome Web Store package ready).</li>
+        <li>Open <a href="/studio">ListLift Studio</a>, drop 1 photo or type 1 line, generate your listing, and click <strong>Send to Auto-Fill Agent</strong>.</li>
+        <li>Switch to <strong>any Seller Portal or Custom Admin Panel</strong> tab, open the "Add Product" form, and click the ListLift extension icon → <strong>Auto-Fill Current Tab (Any Site)</strong>. Click <strong>Undo</strong> anytime to revert.</li>
+      </ol>
+    </section>
+
+    <!-- Per-Marketplace Exact Connection Guides -->
+    <section style="margin-top: var(--space-12);">
+      <h2 style="font-size: clamp(1.5rem, 2.8vw, 2rem); margin-bottom: var(--space-2);">
+        Step-by-step connection guide for every marketplace
+      </h2>
+      <p class="muted" style="margin: 0 0 var(--space-6); max-width: 68ch;">
+        The extension uses on-demand <code>activeTab</code> injection — it only runs when you click the button, never tracks browsing, and works inside your existing logged-in session.
+      </p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: var(--space-4);">
+        {
+          marketplaceGuides.map((mp) => (
+            <article class="card" style="display: flex; flex-direction: column; gap: 8px;">
+              <h3 style="font-size: 1.08rem; margin: 0;">{mp.name}</h3>
+              <div class="mono muted" style="font-size: 0.76rem;">{mp.url}</div>
+              <p style="margin: 4px 0 0; font-size: 0.88rem;">
+                <strong>Open:</strong> {mp.portalPath}
+              </p>
+              <p class="muted" style="margin: 0; font-size: 0.86rem;">
+                <strong>Auto-fills:</strong> {mp.fills}
+              </p>
+              <p class="muted" style="margin: auto 0 0; padding-top: 8px; border-top: 1px solid var(--border); font-size: 0.82rem;">
+                {mp.bulk}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Custom-Made External Website Integration Guide -->
+    <section style="margin-top: var(--space-12); padding-top: var(--space-10); border-top: 1px solid var(--border);">
+      <h2 style="font-size: clamp(1.5rem, 2.8vw, 2rem); margin-bottom: var(--space-2);">
+        How to connect any custom-made website or internal admin panel
+      </h2>
+      <p class="muted" style="margin: 0 0 var(--space-6); max-width: 72ch;">
+        Running WooCommerce, Magento, Wix, Dukaan, BigCommerce, or a custom React / Next.js / Laravel / PHP store? You have 3 ways to connect ListLift:
+      </p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: var(--space-5); margin-bottom: var(--space-6);">
+        <div class="card">
+          <h3>Method A — Zero-Code (Works Immediately)</h3>
+          <p class="muted" style="font-size: 0.9rem; margin: 0;">
+            No code changes needed. Open your custom site's "Add Product" page and click the ListLift extension. Our semantic scorer reads every field's <code>&lt;label&gt;</code>, <code>placeholder</code>, <code>name</code>, <code>aria-label</code>, and nearby text — including React/Vue controlled inputs, Shadow DOMs, and rich-text editors — while safely skipping password, email, and search fields.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Method B — 1-Attribute Exact Binding (100% Deterministic)</h3>
+          <p class="muted" style="font-size: 0.9rem; margin: 0;">
+            If your custom admin panel uses obscure field names (like <code>field_x99</code>), add a single <code>data-listlift</code> attribute to each input. The extension gives explicit attributes <strong>100% priority</strong> over heuristics.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Method C — JSON / CSV Direct Import (API &amp; Bulk)</h3>
+          <p class="muted" style="font-size: 0.9rem; margin: 0;">
+            Export structured JSON or CSV directly from Listing Studio, or use ListLift's REST API (<code>POST /api/v1/generate</code>) on the Business plan to push generated listings straight into your database or headless CMS.
+          </p>
+        </div>
+      </div>
+
+      <div class="card" style="background: var(--subtle);">
+        <strong style="display: block; margin-bottom: 10px; font-size: 0.92rem;">
+          Optional HTML snippet for custom websites (Method B):
+        </strong>
+        <pre class="mono" style="margin: 0; overflow-x: auto; font-size: 0.82rem; line-height: 1.55;">{devSnippet}</pre>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

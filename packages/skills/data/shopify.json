@@ -1,0 +1,58 @@
+{
+  "marketplace": "shopify",
+  "display_name": "Shopify",
+  "region": "Global",
+  "version": "2026-11-22",
+  "last_verified": "2026-11-22",
+  "verification_status": "needs_official_verify",
+  "source_docs": [
+    "https://help.shopify.com/en/manual/promoting-marketing/seo/adding-keywords"
+  ],
+  "fields": {
+    "title": {
+      "label": "Product Title",
+      "min": 10,
+      "max": 255,
+      "recommended_max": 70,
+      "required": true,
+      "notes": "Clean, brand-aligned title; keep concise for collection cards."
+    },
+    "seo_title": {
+      "label": "SEO Page Title",
+      "min": 20,
+      "max": 70,
+      "recommended_max": 60,
+      "required": false,
+      "notes": "Best-practice <= 60 characters to avoid SERP truncation."
+    },
+    "meta_description": {
+      "label": "SEO Meta Description",
+      "min": 70,
+      "max": 160,
+      "recommended_max": 155,
+      "required": false,
+      "notes": "Best-practice <= 160 characters; include main benefit and keyword."
+    },
+    "description": {
+      "label": "Product Description",
+      "min": 150,
+      "max": 5000,
+      "required": true,
+      "notes": "Lead with buyer outcome, followed by structured specs and care."
+    },
+    "tags": {
+      "label": "Product Tags",
+      "count_max": 20,
+      "each_max": 40,
+      "required": false,
+      "notes": "Used for collection filtering and internal search."
+    }
+  },
+  "banned_patterns": [
+    "guaranteed #1",
+    "miracle cure",
+    "fda approved"
+  ],
+  "style_notes": "Brand voice first; short scannable title, conversion-oriented description, and clean SEO title/meta within Google SERP limits.",
+  "export_template": "shopify_csv_v1"
+}

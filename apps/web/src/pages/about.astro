@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="About ListLift"
+  description="Why we built ListLift: a multi-marketplace, evidence-based, claim-safe ecommerce listing platform that shows its homework."
+>
+  <div class="container" style="padding-top: var(--space-8); max-width: 780px;">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a><span>/</span><span aria-current="page">About</span>
+    </nav>
+    <h1>About ListLift</h1>
+    <div class="card" style="display:flex; flex-direction:column; gap:14px;">
+      <p>
+        Writing one strong marketplace listing by hand takes 20–40 minutes: researching competitors, checking character and UTF-8 byte limits, and rewriting everything for each channel.
+      </p>
+      <p>
+        Most AI writers hide their research and invent product features that put sellers at risk of listing suppression. ListLift was built around one simple rule: <strong>show your homework</strong>.
+      </p>
+      <p class="muted" style="margin:0;">
+        Every marketplace rule lives in a versioned, human-verified file with a visible verification date. Every factual claim traces back to your locked product facts or cited competitor data. ListLift saves labour and reduces errors — it never promises fake "#1 rankings".
+      </p>
+    </div>
+  </div>
+</BaseLayout>

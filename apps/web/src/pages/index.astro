@@ -1,0 +1,521 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroWorkbench from '../components/funnel/HeroWorkbench.tsx';
+import RoiCalculator from '../components/funnel/RoiCalculator.tsx';
+import PricingSection from '../components/funnel/PricingSection.tsx';
+import { getAllMarketplaceSkills } from '@listlift/skills';
+
+const skills = getAllMarketplaceSkills();
+
+const standaloneTools = [
+  {
+    href: '/tools/title-generator',
+    name: 'Title Generator + Limit Checker',
+    desc: 'Generate 5 rule-checked title angles with live character meters and keyword coverage.',
+    meta: '5 variants / run',
+  },
+  {
+    href: '/tools/description-generator',
+    name: 'Description + Bullets Generator',
+    desc: 'Turn product specs into short hooks, scannable bullets, and full descriptions in 3 tones.',
+    meta: 'Claim-safe',
+  },
+  {
+    href: '/tools/tags-generator',
+    name: 'Tags & Keywords Generator',
+    desc: 'Fill all 13 Etsy tag slots (≤20 chars) and deduplicated 250-byte Amazon search terms.',
+    meta: '13 slots + UTF-8',
+  },
+  {
+    href: '/tools/sku-generator',
+    name: 'SKU Generator (Batch + CSV)',
+    desc: 'Build clean, uppercase SKUs across variants with automatic duplicate detection.',
+    meta: 'Duplicate check',
+  },
+  {
+    href: '/tools/listing-score',
+    name: 'Listing Score (0–100 Linter)',
+    desc: 'Audit existing copy for over-limit fields, repeated words, and risky promotional claims.',
+    meta: '0–100 score',
+  },
+  {
+    href: '/tools/competitor-compare',
+    name: 'Competitor Compare Matrix',
+    desc: 'Compare 2–10 listings side by side for price band (min/median/max) and keyword gaps.',
+    meta: 'Price band',
+  },
+  {
+    href: '/tools/character-counter',
+    name: 'Character & UTF-8 Byte Counter',
+    desc: 'Verify exact character and UTF-8 byte caps across all 8 launch marketplaces.',
+    meta: '8 marketplaces',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Do I need an account to test ListLift?',
+    a: 'No. Listing Studio and all 7 standalone tools work immediately without signup. Create an account or upgrade only when you want higher daily limits, Bulk CSV, or saved brand voices.',
+  },
+  {
+    q: 'Does ListLift guarantee #1 ranking on Amazon or Etsy?',
+    a: 'No tool can guarantee marketplace rank because rank also depends on sales velocity, reviews, pricing, and conversion. ListLift saves hours of manual writing, fills unused search slots, and catches rule violations before upload.',
+  },
+  {
+    q: 'How does ListLift stop AI from inventing fake specs?',
+    a: 'Your hard facts (material, dimensions, pack count) stay locked. Every factual claim is audited against your input or cited competitor evidence, and anything unverified is flagged amber before you copy.',
+  },
+  {
+    q: 'Are Indian marketplaces like Flipkart and Meesho supported with ₹ pricing?',
+    a: 'Yes. Flipkart and Meesho have dedicated rule files alongside Amazon, Etsy, eBay, Shopify, Walmart, and Shopee/Lazada — with India regional pricing starting at ₹249/month billed annually.',
+  },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'ListLift',
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title="ListLift — Ecommerce Listings Backed by Visible Competitor Evidence"
+  description="Turn a product photo, name, or URL into marketplace-ready listings (title, SKU, bullets, description, 13 tags, SEO meta) backed by visible competitor evidence — free without signup."
+  jsonLd={jsonLd}
+>
+  <!-- Editorial Split Hero (Light Alabaster Paper — zero dark slop, zero glow blobs) -->
+  <section class="hero-band">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <h1 data-hero-stagger>
+          Marketplace listings that <span class="serif-accent">show their homework.</span>
+        </h1>
+        <p class="hero-lead" data-hero-stagger>
+          Give a product photo, name, or URL and get complete, rule-checked copy for Amazon, Etsy, eBay, Shopify, Walmart, Flipkart, Meesho, and Shopee — with visible competitor price bands and zero invented specs.
+        </p>
+        <div class="hero-actions" data-hero-stagger>
+          <a href="/studio" class="btn btn-primary">Open Listing Studio — Free</a>
+          <a href="/autofill" class="btn btn-secondary">See 1-Click Portal Auto-Fill</a>
+        </div>
+        <dl class="hero-facts" data-hero-stagger>
+          <div>
+            <dt>Marketplaces</dt>
+            <dd class="mono">8 built-in</dd>
+          </div>
+          <div>
+            <dt>Try without login</dt>
+            <dd class="mono">3 runs / day</dd>
+          </div>
+          <div>
+            <dt>Pro starts at</dt>
+            <dd class="mono">$7.50 / mo</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="hero-stage" data-hero-stagger>
+        <HeroWorkbench client:load />
+      </div>
+    </div>
+  </section>
+
+  <!-- Architectural Comparison Ledger (Why sellers switch — honest, verifiable math) -->
+  <section class="band band-ruled" data-reveal>
+    <div class="container">
+      <div class="band-head">
+        <h2>Why sellers replace spreadsheets and blind AI writers</h2>
+        <p class="muted">
+          Most listing tools either lock you to one marketplace, charge $29+/month upfront, or invent product features with no proof.
+        </p>
+      </div>
+
+      <div class="table-wrap">
+        <table class="table compare-table">
+          <thead>
+            <tr>
+              <th>Workflow</th>
+              <th>Time for 100 listings</th>
+              <th>Multi-marketplace rules</th>
+              <th>Visible competitor evidence</th>
+              <th>Claim-safe audit</th>
+              <th>Starting paid price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Manual spreadsheets</strong></td>
+              <td class="mono muted">~42 hours</td>
+              <td class="muted">Look up by hand</td>
+              <td class="muted">20 browser tabs</td>
+              <td class="muted">Manual review</td>
+              <td class="mono muted">Your time</td>
+            </tr>
+            <tr>
+              <td><strong>Typical AI writers</strong></td>
+              <td class="mono muted">~12 hours (+ rewrites)</td>
+              <td class="muted">Often Amazon-only</td>
+              <td class="muted">Hidden prompt</td>
+              <td class="muted">Invents specs</td>
+              <td class="mono muted">$29–$79 / mo</td>
+            </tr>
+            <tr class="row-highlight">
+              <td><strong>ListLift</strong></td>
+              <td class="mono"><strong>~8 hours (review only)</strong></td>
+              <td><strong>8 versioned rule files</strong></td>
+              <td><strong>Sources, gaps &amp; price band</strong></td>
+              <td><span class="badge badge-pass">Grounded + amber flags</span></td>
+              <td class="mono"><strong>$7.50 / mo annual</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Seller ROI & AOV Calculator -->
+  <section id="roi" class="band band-ruled" data-reveal>
+    <div class="container">
+      <div class="band-head">
+        <h2>See what your catalog saves every month</h2>
+        <p class="muted">
+          Move the sliders to match your store or agency volume. ListLift pays for itself on your very first batch.
+        </p>
+      </div>
+      <RoiCalculator client:visible />
+    </div>
+  </section>
+
+  <!-- Ruled Tool Directory (Flagship + Architectural 2-Column List — zero copy-paste cards) -->
+  <section class="band band-ruled" data-reveal>
+    <div class="container">
+      <div class="band-head-row">
+        <div>
+          <h2>One rules engine, eight public tools</h2>
+          <p class="muted">Start with any single utility free without signup, or run the full workflow in Listing Studio.</p>
+        </div>
+        <a href="/tools/" class="btn btn-secondary btn-sm">View tools hub</a>
+      </div>
+
+      <a href="/studio" class="flagship-row">
+        <div>
+          <h3>Listing Studio</h3>
+          <p class="muted">
+            Upload a photo (resized locally to ≤1024px WebP), lock hard facts, and generate complete listings across all 8 marketplaces with an 8-step timeline, score gauge, evidence panel, CSV/JSON export, and read-only client share links.
+          </p>
+        </div>
+        <span class="btn btn-primary">Launch Studio</span>
+      </a>
+
+      <ul class="tool-ledger">
+        {
+          standaloneTools.map((tool) => (
+            <li>
+              <a href={tool.href} class="tool-row">
+                <div class="tool-row-main">
+                  <strong>{tool.name}</strong>
+                  <span class="muted">{tool.desc}</span>
+                </div>
+                <div class="tool-row-end">
+                  <span class="badge badge-neutral">{tool.meta}</span>
+                  <svg class="row-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M5 12h14m-6-6 6 6-6 6" />
+                  </svg>
+                </div>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Supported Marketplace Rules Strip -->
+  <section class="band band-ruled" data-reveal>
+    <div class="container">
+      <div class="band-head-row">
+        <div>
+          <h2>Versioned rules for 8 global &amp; Indian marketplaces</h2>
+          <p class="muted">Every character limit, UTF-8 byte cap, and banned phrase lives in a human-verified rule file.</p>
+        </div>
+        <a href="/guides/" class="btn btn-ghost btn-sm">Read seller guides</a>
+      </div>
+
+      <div class="chip-group">
+        {
+          skills.map((s) => (
+            <a href={`/marketplaces/${s.marketplace}`} class="chip" style="text-decoration:none;">
+              <span>{s.display_name}</span>
+              <span class="mono muted" style="font-size:0.75rem;">≤{s.fields.title.max}</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- High-AOV Pricing Section directly on Home -->
+  <section id="pricing" class="band band-ruled" data-reveal>
+    <div class="container">
+      <div class="band-head">
+        <h2>Pricing built for real seller margins</h2>
+        <p class="muted">
+          Try everything free without an account. Switch to annual billing for two months free, or pick India regional pricing in ₹.
+        </p>
+      </div>
+      <PricingSection client:visible />
+    </div>
+  </section>
+
+  <!-- Focused FAQ -->
+  <section class="band band-ruled" data-reveal>
+    <div class="container faq-container">
+      <h2>Common questions</h2>
+      <div class="faq-ledger">
+        {
+          faqs.map((item) => (
+            <details class="faq-row">
+              <summary>
+                <span>{item.q}</span>
+                <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </summary>
+              <p class="muted">{item.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero-band {
+    padding: var(--space-12) 0 var(--space-16);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
+    align-items: center;
+  }
+  @media (min-width: 980px) {
+    .hero-grid {
+      grid-template-columns: 1fr 1.12fr;
+      gap: var(--space-12);
+    }
+  }
+  .hero-copy h1 {
+    font-size: clamp(2.4rem, 4.8vw, 3.6rem);
+    line-height: 1.06;
+    margin-bottom: var(--space-5);
+  }
+  .hero-copy h1 .serif-accent {
+    font-size: 1.08em;
+    color: var(--primary-text);
+  }
+  .hero-lead {
+    font-size: 1.0625rem;
+    color: var(--muted);
+    max-width: 54ch;
+    margin: 0 0 var(--space-6);
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: var(--space-8);
+  }
+  .hero-facts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-4);
+    margin: 0;
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--border);
+  }
+  .hero-facts dt {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+  .hero-facts dd {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .band {
+    padding: var(--space-16) 0;
+  }
+  .band-ruled {
+    border-top: 1px solid var(--border);
+  }
+  .band-head {
+    max-width: 64ch;
+    margin-bottom: var(--space-8);
+  }
+  .band-head h2,
+  .band-head-row h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin-bottom: var(--space-2);
+  }
+  .band-head p,
+  .band-head-row p {
+    margin: 0;
+  }
+  .band-head-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+
+  .compare-table .row-highlight td {
+    background: var(--primary-soft);
+  }
+
+  .flagship-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
+    padding: var(--space-6);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-strong);
+    background: var(--surface);
+    color: var(--text);
+    text-decoration: none;
+    margin-bottom: var(--space-6);
+    transition: border-color 180ms var(--ease-out), box-shadow 220ms var(--ease-out);
+  }
+  .flagship-row:hover {
+    text-decoration: none;
+    border-color: var(--primary);
+    box-shadow: var(--shadow-md);
+  }
+  .flagship-row h3 {
+    font-size: 1.35rem;
+    margin-bottom: 6px;
+  }
+  .flagship-row p {
+    margin: 0;
+    max-width: 68ch;
+    font-size: 0.94rem;
+  }
+
+  .tool-ledger {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 820px) {
+    .tool-ledger {
+      grid-template-columns: 1fr 1fr;
+      column-gap: var(--space-8);
+    }
+  }
+  .tool-ledger li {
+    border-bottom: 1px solid var(--border);
+  }
+  .tool-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-5) 6px;
+    color: var(--text);
+    text-decoration: none;
+    transition: background-color 150ms ease;
+  }
+  .tool-row:hover {
+    text-decoration: none;
+    background: var(--subtle);
+  }
+  .tool-row-main {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .tool-row-main strong {
+    font-size: 0.98rem;
+  }
+  .tool-row-main span {
+    font-size: 0.86rem;
+    line-height: 1.45;
+  }
+  .tool-row-end {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .row-arrow {
+    color: var(--muted);
+    transition: transform 180ms var(--ease-out), color 150ms ease;
+  }
+  .tool-row:hover .row-arrow {
+    transform: translateX(3px);
+    color: var(--text);
+  }
+
+  .faq-container {
+    max-width: 820px;
+  }
+  .faq-container h2 {
+    font-size: clamp(1.5rem, 2.8vw, 2rem);
+    margin-bottom: var(--space-6);
+  }
+  .faq-ledger {
+    border-top: 1px solid var(--border);
+  }
+  .faq-row {
+    border-bottom: 1px solid var(--border);
+    padding: var(--space-5) 0;
+  }
+  .faq-row summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    list-style: none;
+  }
+  .faq-row summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-chevron {
+    flex-shrink: 0;
+    color: var(--muted);
+    transition: transform 200ms var(--ease-out);
+  }
+  .faq-row[open] .faq-chevron {
+    transform: rotate(180deg);
+  }
+  .faq-row p {
+    margin: var(--space-3) 0 0;
+    max-width: 68ch;
+  }
+</style>

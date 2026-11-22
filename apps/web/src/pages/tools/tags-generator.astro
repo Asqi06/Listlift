@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TagsGenerator from '../../components/tools/TagsGenerator.tsx';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'ListLift Marketplace Tags & Keywords Generator',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+};
+---
+
+<BaseLayout
+  title="Etsy Tags & Amazon Backend Keywords Generator"
+  description="Fill all 13 Etsy tag slots (≤20 chars each) and generate deduplicated 250-byte Amazon backend search terms automatically."
+  jsonLd={jsonLd}
+>
+  <div class="container" style="padding-top: var(--space-8);">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a><span>/</span><a href="/tools/">Tools</a><span>/</span><span aria-current="page">Tags &amp; Keywords</span>
+    </nav>
+    <h1>Tags &amp; Keywords Generator</h1>
+    <p class="muted" style="max-width: 66ch; margin-bottom: var(--space-6);">
+      Stop leaving search slots empty or repeating words. Generate distinct multi-word tags fitted to each marketplace's exact character and UTF-8 byte limits.
+    </p>
+    <TagsGenerator client:load />
+  </div>
+</BaseLayout>

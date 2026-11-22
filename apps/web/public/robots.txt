@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /l/
+
+Sitemap: https://listlift.com/sitemap.xml
