@@ -99,7 +99,7 @@ export async function createSampleProductPhoto(): Promise<{
   name: string;
   width: number;
   height: number;
-  sizeKb: number;
+  kb: number;
 }> {
   const canvas = document.createElement('canvas');
   canvas.width = 512;
@@ -162,12 +162,12 @@ export async function createSampleProductPhoto(): Promise<{
   }
 
   const dataUrl = canvas.toDataURL('image/webp', 0.88);
-  const sizeKb = Math.max(1, Math.round((dataUrl.length * 0.75) / 1024));
+  const kb = Math.max(1, Math.round((dataUrl.length * 0.75) / 1024));
   return {
     dataUrl,
     name: 'sample-gold-heart-earrings.webp',
     width: 512,
     height: 512,
-    sizeKb,
+    kb,
   };
 }

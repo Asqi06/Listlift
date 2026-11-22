@@ -11,7 +11,7 @@ async function compressPhoto(file: File): Promise<{
   name: string;
   width: number;
   height: number;
-  sizeKb: number;
+  kb: number;
 }> {
   const bitmap = await createImageBitmap(file);
   const maxSide = 512;
@@ -25,8 +25,8 @@ async function compressPhoto(file: File): Promise<{
   ctx?.drawImage(bitmap, 0, 0, width, height);
   bitmap.close();
   const dataUrl = canvas.toDataURL('image/webp', 0.82);
-  const sizeKb = Math.max(1, Math.round((dataUrl.length * 0.75) / 1024));
-  return { dataUrl, name: file.name, width, height, sizeKb };
+  const kb = Math.max(1, Math.round((dataUrl.length * 0.75) / 1024));
+  return { dataUrl, name: file.name, width, height, kb };
 }
 
 export default function SmartCommandBar() {
