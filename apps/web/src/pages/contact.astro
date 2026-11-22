@@ -1,21 +1,32 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Contact Support, Billing & Privacy Requests | ListLift',
+  url: 'https://listlift.com/contact',
+  description:
+    'Contact ListLift for subscription billing, refund requests, GDPR/CCPA/DPDP data deletion, Chrome Extension support, or marketplace rule updates.',
+};
 ---
 
 <BaseLayout
-  title="Contact & Beta Waitlist"
-  description="Contact ListLift for beta access, marketplace rule updates, privacy requests, or agency inquiries."
+  title="Contact Support, Billing & Privacy Requests"
+  description="Contact ListLift for subscription billing, refund requests, GDPR/CCPA/DPDP data deletion, Chrome Extension support, or marketplace rule updates."
+  canonicalPath="/contact"
+  jsonLd={webPageSchema}
 >
   <div class="container" style="padding-top: var(--space-8); max-width: 680px;">
     <nav class="breadcrumbs" aria-label="Breadcrumb">
       <a href="/">Home</a><span>/</span><span aria-current="page">Contact</span>
     </nav>
-    <h1>Contact &amp; Pro Beta Waitlist</h1>
+    <h1>Contact Support &amp; Privacy Desk</h1>
     <p class="muted" style="margin-bottom: var(--space-6);">
-      Request early access to Pro/Business plans, report a marketplace rule change, or submit a privacy/data-deletion request.
+      Email us directly at <a href="mailto:[support@yourdomain.com]">[support@yourdomain.com]</a> or send a message below for billing, refunds, Chrome Extension help, or GDPR/CCPA/DPDP data requests. We reply within 24 to 48 business hours.
     </p>
     <div class="card-elevated">
-      <form onsubmit="event.preventDefault(); this.querySelector('[data-msg]').textContent = 'Thanks! Your request has been recorded for the beta team.';" style="display:flex; flex-direction:column; gap:14px;">
+      <form onsubmit="event.preventDefault(); this.querySelector('[data-msg]').textContent = 'Thanks! Your request has been recorded. We will reply within 24 to 48 business hours.';" style="display:flex; flex-direction:column; gap:14px;">
         <div class="field">
           <label for="c-email">Email address</label>
           <input id="c-email" type="email" required class="input" placeholder="you@store.com" />
@@ -23,10 +34,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="field">
           <label for="c-topic">Topic</label>
           <select id="c-topic" class="select">
-            <option>Pro / Business Beta Waitlist</option>
+            <option>Pro / Business Subscription &amp; Billing</option>
+            <option>Refund Request (7-Day Window)</option>
+            <option>Privacy / Delete My Data (GDPR, CCPA, DPDP)</option>
+            <option>Chrome &amp; Edge Extension Support</option>
             <option>Report Marketplace Rule Update</option>
-            <option>Privacy / Delete My Data</option>
-            <option>General Feedback</option>
           </select>
         </div>
         <div class="field">

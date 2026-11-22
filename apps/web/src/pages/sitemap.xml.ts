@@ -22,6 +22,7 @@ export const GET: APIRoute = ({ site }) => {
     '/contact',
     '/privacy',
     '/terms',
+    '/refunds',
   ];
 
   const marketplaceRoutes = getAllMarketplaceSkills().map(

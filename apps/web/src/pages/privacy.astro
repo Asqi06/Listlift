@@ -1,26 +1,156 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const lastUpdated = 'November 2026';
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Privacy Policy & Chrome Extension Data Disclosure | ListLift',
+  url: 'https://listlift.com/privacy',
+  dateModified: '2026-11-22',
+  description:
+    'ListLift Privacy Policy covering GDPR, CCPA, India DPDP Act, zero permanent photo retention, and Chrome/Edge Extension Limited Use Policy compliance.',
+};
 ---
 
 <BaseLayout
-  title="Privacy Policy"
-  description="ListLift Privacy Policy: GDPR & India DPDP-ready data handling, 24-hour image auto-deletion, and zero AI model training on user content."
+  title="Privacy Policy & Chrome Extension Data Disclosure"
+  description="ListLift Privacy Policy for GDPR, CCPA, India DPDP, and Chrome Web Store compliance: zero permanent photo retention, on-click extension use, user rights."
+  canonicalPath="/privacy"
+  jsonLd={webPageSchema}
 >
-  <div class="container" style="padding-top: var(--space-8); max-width: 780px;">
+  <article class="container legal-shell">
     <nav class="breadcrumbs" aria-label="Breadcrumb">
       <a href="/">Home</a><span>/</span><span aria-current="page">Privacy Policy</span>
     </nav>
-    <h1>Privacy Policy</h1>
-    <div class="card" style="display:flex; flex-direction:column; gap:14px;">
-      <p><strong>Effective date:</strong> 22 November 2026</p>
-      <h2>1. Zero Training on Your Content</h2>
-      <p class="muted">Product photos, titles, SKUs, and drafts you enter into ListLift are never sold and never used to train AI models.</p>
-      <h2>2. Image Handling &amp; 24-Hour Retention</h2>
-      <p class="muted">Product images are resized locally in your browser to WebP (max 1024px). Any temporary server-side uploads for free/anonymous users are auto-deleted within 24 hours.</p>
-      <h2>3. Cookies &amp; Analytics</h2>
-      <p class="muted">We store a single functional cookie (`ll_theme`) to remember your light/dark mode preference. Privacy-friendly web analytics do not track you across sites.</p>
-      <h2>4. Your Rights (GDPR &amp; India DPDP)</h2>
-      <p class="muted">You may request access to or deletion of your account data at any time via our <a href="/contact">Contact page</a>.</p>
+
+    <header class="legal-header">
+      <span class="badge badge-pass">Last Updated: {lastUpdated}</span>
+      <h1>Privacy Policy &amp; Extension Data Disclosure</h1>
+      <p class="muted legal-intro">
+        This Privacy Policy explains how <strong>[Your Company Legal Name, City, Country]</strong> ("ListLift", "we", "us") handles information when you use our web application at <strong>listlift.com</strong> and the <strong>ListLift Chrome &amp; Edge Extension</strong>. We comply with GDPR (EU/UK), CCPA (California), the India DPDP Act, Payment Gateway requirements, and the Chrome Web Store User Data Policy.
+      </p>
+    </header>
+
+    <div class="card legal-body">
+      <section>
+        <h2>1. Data We Collect &amp; Why</h2>
+        <p>We collect only the minimum data needed to run ListLift reliably and prevent abuse:</p>
+        <ul>
+          <li><strong>Account Information (Paid Subscribers):</strong> When you subscribe to a paid plan, our payment processor (such as Paddle, Lemon Squeezy, Stripe, or Razorpay) collects your email address and billing details to manage your subscription and send receipts. ListLift does not store your full credit card number.</li>
+          <li><strong>Temporary IP Logging (Rate Limiting &amp; Security):</strong> We temporarily log IP addresses solely to enforce daily free-tier usage limits and block automated bot abuse.</li>
+          <li><strong>Transient Product Inputs:</strong> Product photos and short product text you submit are sent temporarily to our backend to generate marketplace listing drafts.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>2. Zero Image Retention &amp; No AI Training Guarantee</h2>
+        <p>
+          Uploaded product photos are resized locally in your browser before upload and processed transiently in memory or temporary runtime storage solely to generate your listing. <strong>Product photos are deleted immediately after listing generation and are never permanently stored on our servers.</strong>
+        </p>
+        <p>
+          We never sell your product photos, SKUs, titles, or listing drafts, and we never use your uploaded content to train public AI models.
+        </p>
+      </section>
+
+      <section id="extension-privacy">
+        <h2>3. Chrome &amp; Edge Extension Privacy Disclosure</h2>
+        <p>
+          The ListLift browser extension is built around strict user-initiated privacy and adheres to the <strong>Chrome Web Store Limited Use Policy</strong>:
+        </p>
+        <ul>
+          <li><strong>Permissions Used:</strong> The extension requests only <code>activeTab</code>, <code>scripting</code>, and <code>storage</code> permissions.</li>
+          <li><strong>Strictly On User Click:</strong> The extension executes <strong>only when you explicitly click "Auto-Fill"</strong> on an open marketplace seller portal or custom store tab to populate your synced listing fields.</li>
+          <li><strong>Zero Background Tracking:</strong> The extension does not run background monitoring, does not read or collect your browsing history, does not scrape unrelated pages, and never sells or transfers user data to third parties, advertisers, or data brokers.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>4. Cookies &amp; Local Storage</h2>
+        <p>
+          ListLift uses essential functional storage only:
+        </p>
+        <ul>
+          <li><code>ll_theme</code> cookie to remember your light or dark theme preference.</li>
+          <li>Browser <code>localStorage</code> and extension <code>chrome.storage.local</code> to keep your latest listing draft synced for 1-click Auto-Fill and local Studio history.</li>
+          <li>Essential authentication session tokens for paid subscribers.</li>
+        </ul>
+        <p>
+          We do not run invasive cross-site advertising trackers. If we introduce any non-essential analytics cookies in the future, we will request your explicit consent before activating them.
+        </p>
+      </section>
+
+      <section>
+        <h2>5. Your Privacy Rights &amp; Data Deletion (GDPR, CCPA &amp; India DPDP)</h2>
+        <p>
+          Depending on your region (including EU/UK under GDPR, California under CCPA, and India under the DPDP Act), you have the right to request access to, correction of, portability of, or deletion of any personal data associated with your account, and to opt out of non-essential processing.
+        </p>
+        <p>
+          To exercise any of these rights or request account data deletion, email us at <a href="mailto:[support@yourdomain.com]">[support@yourdomain.com]</a> or submit a request on our <a href="/contact">Contact page</a>. We respond to all verified privacy requests within 30 days (and typically within 48 business hours).
+        </p>
+      </section>
+
+      <section>
+        <h2>6. Contact &amp; Data Controller</h2>
+        <p>
+          Operator: <strong>[Your Company Legal Name, City, Country]</strong><br />
+          Privacy &amp; Support Email: <a href="mailto:[support@yourdomain.com]">[support@yourdomain.com]</a><br />
+          Related Policies: <a href="/terms">Terms of Service</a> · <a href="/refunds">Refund &amp; Cancellation Policy</a>
+        </p>
+      </section>
     </div>
-  </div>
+  </article>
 </BaseLayout>
+
+<style>
+  .legal-shell {
+    padding-top: var(--space-8);
+    max-width: 820px;
+  }
+  .legal-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: var(--space-6);
+  }
+  .legal-header h1 {
+    margin: 0;
+  }
+  .legal-intro {
+    margin: 0;
+    font-size: 1.02rem;
+    line-height: 1.65;
+  }
+  .legal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: clamp(20px, 3vw, 34px);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  .legal-body h2 {
+    margin: 0 0 10px;
+    font-size: 1.22rem;
+  }
+  .legal-body p {
+    margin: 0 0 10px;
+    color: var(--text-muted);
+  }
+  .legal-body p:last-child {
+    margin-bottom: 0;
+  }
+  .legal-body ul {
+    margin: 0 0 10px;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: var(--text-muted);
+  }
+  .legal-body strong {
+    color: var(--text);
+  }
+</style>
