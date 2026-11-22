@@ -62,7 +62,7 @@ export function buildMarketplacePortalFields(
           hint: 'Flipkart allows up to 5 high-intent keywords',
         },
         { key: 'description', label: 'Product Description', value: listing.longDescription, required: true },
-        { key: 'country_of_origin', label: 'Country of Origin', value: 'India (verify before publishing)', required: true, hint: 'Mandatory on Flipkart' },
+        { key: 'country_of_origin', label: 'Country of Origin', value: 'Specify Country of Origin (verify before publishing)', required: true, hint: 'Mandatory catalog field' },
       ];
 
     case 'meesho':
@@ -74,7 +74,7 @@ export function buildMarketplacePortalFields(
         { key: 'size', label: 'Size / Free Size', value: size, required: true, hint: 'Select Free Size if non-apparel' },
         { key: 'net_quantity', label: 'Net Quantity (N)', value: '1 (verify pack count)', required: true, hint: 'Mandatory Meesho field' },
         { key: 'description', label: 'Product Description', value: `${listing.shortDescription}\n\n${listing.bullets.map((b) => `• ${b}`).join('\n')}`, required: true, hint: 'Simple, mobile-friendly copy' },
-        { key: 'country_of_origin', label: 'Country of Origin', value: 'India (verify before publishing)', required: true },
+        { key: 'country_of_origin', label: 'Country of Origin', value: 'Specify Country of Origin (verify before publishing)', required: true },
       ];
 
     case 'etsy':

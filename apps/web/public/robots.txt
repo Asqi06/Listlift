@@ -3,4 +3,20 @@ Allow: /
 Disallow: /api/
 Disallow: /l/
 
+# Welcome AI answer engines & search crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://listlift.com/sitemap.xml

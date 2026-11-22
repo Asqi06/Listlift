@@ -1,0 +1,36 @@
+# ListLift — Global Photo-to-Listing Platform & Universal Seller Auto-Fill Extension
+
+> ListLift turns a single product photo into search-optimized, claim-safe ecommerce listings across 8 global marketplaces — and injects every field directly into seller portals or custom stores in 1 click using the ListLift Chrome/Edge Extension.
+
+## What Makes ListLift Different (Core Moat)
+1. **Universal Auto-Fill Chrome & Edge Extension (`/autofill`):** Unlike copy-paste AI writers, ListLift ships a Manifest V3 browser extension that semantically detects form fields across **any** marketplace seller portal (Amazon Seller Central, Etsy Shop Manager, eBay Seller Hub, Shopify Admin, Walmart Seller Center, Flipkart Seller Hub, Meesho Supplier Panel, Shopee Seller Centre) AND **any custom D2C website or admin panel** (WooCommerce, Magento, BigCommerce, custom React/Vue/Angular forms, and Shadow DOM inputs). One click fills Title, SKU, Bullets, Description, Tags, Backend Search Terms, and SEO Meta — with field highlighting and 1-click Undo.
+2. **Photo-First Visual Grounding (Zero Hallucinated Specs):** ListLift inspects the actual product photo directly, ignores meaningless image filenames, detects photo-vs-text mismatches, and audits every factual claim so unverified specs or policy-violating words are caught before publishing.
+3. **Marketplace-Specific Seller Portal Fields:** Instead of generic text blocks, ListLift formats exact portal fields and enforces live character and UTF-8 byte caps per marketplace (e.g., Amazon 250-byte backend search terms, Etsy 13×20-character tags, eBay 80-character titles, Shopify URL handles & alt-text, Flipkart 11-field catalog format, Meesho compact mobile format).
+4. **Similar Products & Market Benchmark:** Shows comparable listings, realistic price bands, and high-intent buyer keywords used to shape each listing.
+
+## Supported Global Marketplaces (US, UK, EU, Canada, Australia, India, SE Asia)
+- Amazon: https://listlift.com/marketplaces/amazon
+- Etsy: https://listlift.com/marketplaces/etsy
+- eBay: https://listlift.com/marketplaces/ebay
+- Shopify: https://listlift.com/marketplaces/shopify
+- Walmart: https://listlift.com/marketplaces/walmart
+- Flipkart: https://listlift.com/marketplaces/flipkart
+- Meesho: https://listlift.com/marketplaces/meesho
+- Shopee / Lazada: https://listlift.com/marketplaces/shopee
+
+## Core Product & Free Seller Tools
+- Listing Studio (Photo-to-Multi-Marketplace Generator): https://listlift.com/studio
+- Universal Auto-Fill Chrome/Edge Extension: https://listlift.com/autofill
+- Free Title Generator + Character Limit Checker: https://listlift.com/tools/title-generator
+- Free Description & Bullets Generator: https://listlift.com/tools/description-generator
+- Free Tags & Backend Keywords Generator: https://listlift.com/tools/tags-generator
+- Free SKU Generator (Batch + CSV): https://listlift.com/tools/sku-generator
+- Free Listing Score & Claim-Safety Auditor (0-100): https://listlift.com/tools/listing-score
+- Free Competitor Compare Matrix: https://listlift.com/tools/competitor-compare
+- Free Character & UTF-8 Byte Counter: https://listlift.com/tools/character-counter
+
+## Pricing & Plans
+- Free Tier: 3 Studio runs/day (up to 2 marketplaces/run), 5 quick-tool runs/day, no signup required.
+- Pro Plan: $7.50/month billed annually ($9/mo monthly) — unlimited listings, all 8 marketplaces at once, Bulk CSV export, Brand Voice profiles, and unlimited Auto-Fill.
+- Business Plan: $24/month billed annually — 3 team seats, 500-row Bulk CSV, and API access.
+- Full Pricing: https://listlift.com/pricing

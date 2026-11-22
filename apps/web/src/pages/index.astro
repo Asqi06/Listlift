@@ -66,8 +66,8 @@ const faqs = [
     a: 'Your hard facts (material, dimensions, pack count) stay locked. Every factual claim is audited against your input or cited competitor evidence, and anything unverified is flagged amber before you copy.',
   },
   {
-    q: 'Are Indian marketplaces like Flipkart and Meesho supported with ₹ pricing?',
-    a: 'Yes. Flipkart and Meesho have dedicated rule files alongside Amazon, Etsy, eBay, Shopify, Walmart, and Shopee/Lazada — with India regional pricing starting at ₹249/month billed annually.',
+    q: 'Which countries and marketplaces does ListLift support?',
+    a: 'ListLift is built for global sellers across the US, UK, Europe, Canada, Australia, India, and Southeast Asia — with dedicated field rules for Amazon, Etsy, eBay, Shopify, Walmart, Flipkart, Meesho, and Shopee/Lazada, plus a Universal Auto-Fill Chrome/Edge Extension that works on any custom online store.',
   },
 ];
 
@@ -75,10 +75,23 @@ const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'ListLift',
+    name: 'ListLift — Photo-to-Listing Studio & Universal Auto-Fill Extension',
     applicationCategory: 'BusinessApplication',
-    operatingSystem: 'Web',
-    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    operatingSystem: 'Web, Chrome, Edge',
+    url: 'https://listlift.com',
+    description:
+      'Turn 1 product photo into keyword-rich, claim-safe ecommerce listings across 8 global marketplaces and auto-fill any seller portal or custom store in 1 click using the ListLift Chrome/Edge Extension.',
+    featureList: [
+      'Photo-first visual inspection that ignores meaningless filenames and flags photo-vs-text mismatches',
+      'Universal 1-click Auto-Fill Chrome/Edge Extension for Amazon, Etsy, eBay, Shopify, Walmart, Flipkart, Meesho, Shopee, and custom D2C admin panels',
+      'Marketplace-specific seller portal fields with live character and UTF-8 byte enforcement',
+      'Similar products benchmark and claim-safety audit',
+    ],
+    offers: [
+      { '@type': 'Offer', name: 'Free', price: '0', priceCurrency: 'USD' },
+      { '@type': 'Offer', name: 'Pro', price: '7.50', priceCurrency: 'USD' },
+      { '@type': 'Offer', name: 'Business', price: '24.00', priceCurrency: 'USD' },
+    ],
   },
   {
     '@context': 'https://schema.org',
@@ -273,7 +286,7 @@ const jsonLd = [
       <div class="band-head">
         <h2>Pricing built for real seller margins</h2>
         <p class="muted">
-          Try everything free without an account. Switch to annual billing for two months free, or pick India regional pricing in ₹.
+          Try Listing Studio and all 7 tools free without an account. Switch to annual billing for two months free — available worldwide.
         </p>
       </div>
       <PricingSection client:visible />

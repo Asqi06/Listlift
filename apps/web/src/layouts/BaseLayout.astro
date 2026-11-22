@@ -25,6 +25,17 @@ const {
 const canonicalUrl = new URL(canonicalPath, Astro.site ?? 'https://listlift.com').toString();
 const fullTitle = title.includes('ListLift') ? title : `${title} | ListLift`;
 const pathname = Astro.url.pathname;
+const globalOrgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'ListLift',
+  url: 'https://listlift.com',
+  description:
+    'Global photo-to-listing platform and universal 1-click Chrome/Edge Auto-Fill Extension for Amazon, Etsy, eBay, Shopify, Walmart, Flipkart, Meesho, and Shopee sellers.',
+};
+const combinedJsonLd = jsonLd
+  ? [globalOrgSchema, ...(Array.isArray(jsonLd) ? jsonLd : [jsonLd])]
+  : [globalOrgSchema];
 ---
 
 <!doctype html>
@@ -35,12 +46,25 @@ const pathname = Astro.url.pathname;
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+    <link rel="alternate" hreflang="en" href={canonicalUrl} />
+    <link rel="alternate" hreflang="en-US" href={canonicalUrl} />
+    <link rel="alternate" hreflang="en-GB" href={canonicalUrl} />
+    <link rel="alternate" hreflang="en-CA" href={canonicalUrl} />
+    <link rel="alternate" hreflang="en-AU" href={canonicalUrl} />
+    <link rel="alternate" hreflang="en-IN" href={canonicalUrl} />
+    <link rel="alternate" hreflang="en-SG" href={canonicalUrl} />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs.txt" />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta property="og:site_name" content="ListLift" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -62,14 +86,10 @@ const pathname = Astro.url.pathname;
         document.addEventListener('astro:after-swap', applyTheme);
       })();
     </script>
-    {
-      jsonLd && (
-        <script
-          type="application/ld+json"
-          set:html={JSON.stringify(jsonLd)}
-        />
-      )
-    }
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(combinedJsonLd)}
+    />
   </head>
   <body>
     <div class="scroll-progress" aria-hidden="true"></div>

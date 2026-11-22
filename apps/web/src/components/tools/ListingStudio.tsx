@@ -424,7 +424,7 @@ export default function ListingStudio() {
             <div>
               <strong style={{ fontSize: '0.96rem' }}>Daily free Studio limit reached (3/3 runs today)</strong>
               <p class="muted" style={{ margin: '4px 0 0', fontSize: '0.85rem' }}>
-                Upgrade to Pro (₹249/mo · $7.50/mo) for unlimited photo-to-listing runs, all 8 marketplaces in 1 click, and Bulk CSV export.
+                Upgrade to Pro ($7.50/mo billed annually) for unlimited photo-to-listing runs, all 8 marketplaces in 1 click, and Bulk CSV export.
               </p>
             </div>
             <a href="/pricing" class="btn btn-primary btn-sm">Upgrade to Pro</a>
@@ -807,7 +807,7 @@ export default function ListingStudio() {
             <div>
               <strong style={{ fontSize: '0.96rem' }}>Need to run 50–500 SKUs at once?</strong>
               <p class="muted" style={{ margin: '4px 0 0', fontSize: '0.86rem' }}>
-                Upgrade to Pro ($7.50/mo annual · ₹249/mo) for Bulk CSV, Brand Voice profiles, and unlimited Auto-Fill — or Business for 3 team seats &amp; API.
+                Upgrade to Pro ($7.50/mo billed annually) for Bulk CSV, Brand Voice profiles, and unlimited 1-click Auto-Fill — or Business for 3 team seats &amp; API.
               </p>
             </div>
             <a href="/pricing" class="btn btn-primary btn-sm">Compare Pro &amp; Business</a>
