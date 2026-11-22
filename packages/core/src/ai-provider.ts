@@ -261,8 +261,11 @@ function buildBatchedPrompt(
     hasImage
       ? `2. COMPARE user text against the image. If user text names a DIFFERENT product than what is in the image, set "imageTextMismatch" explaining the conflict and generate ALL listing fields based on the IMAGE, NOT the conflicting text.`
       : `2. Set "imageTextMismatch": null.`,
-    `3. WRITE LIKE A REAL HUMAN TOP SELLER — NOT AN AI. STRICTLY BAN buzzwords & AI clichés: never use "elevate", "seamless", "timeless elegance", "crafted with precision", "unparalleled", "game-changer", "must-have", "effortlessly", "sleek design", "upgrade your", "delve", "boasts", "stunning", or "ultimate".`,
-    `4. REAL BUYER SEO & RELATABLE COPY: Front-load exact search terms real shoppers type (item type + shape/pattern + color/finish + style/occasion + recipient). Write concrete, practical bullets & descriptions buyers actually care about (look/texture, everyday comfort/use, gifting occasion, care/storage) with natural long-tail keywords and zero keyword stuffing.`,
+    `3. WRITE LIKE A REAL HUMAN TOP SELLER, NOT AN AI. Hard copy rules:`,
+    `   - NEVER use em dashes (—) or double hyphens (--). Use commas, periods, or colons.`,
+    `   - STRICTLY BAN AI buzzwords: "elevate", "seamless", "timeless elegance", "crafted with precision", "unparalleled", "game-changer", "must-have", "effortlessly", "sleek design", "upgrade your", "delve", "boasts", "stunning", "ultimate", "revolutionary", "cutting-edge", "unlock", "empower".`,
+    `   - NEVER use "It's not just X, it's Y" or robotic Title Case on bullet sentences. Write bullets in natural sentence case.`,
+    `4. REAL BUYER SEO & RELATABLE WORDS: Front-load the exact words shoppers actually type into search bars (product type + shape/pattern + color/finish + style/occasion + recipient). Write concrete, practical bullets & descriptions covering what buyers ask before clicking Buy (look, feel/weight, everyday use, gifting occasion, simple care) using natural long-tail keywords with zero keyword stuffing.`,
     `5. In "similarProducts", include 3 realistic comparable listings in this exact product category on ${req.marketplaces.join('/')} and explain in "takeaways" what real buyer search keywords, angles, and price positioning were drawn from them. Populate realistic global USD "competitorPriceBand" (min/median/max) and high-intent "keywordGaps".`,
     `6. Fill EVERY field completely (title, 2 alternateTitles, shortDescription, longDescription <=110 words, all bullets, all tags, searchTerms, seoTitle<=60c, metaDescription<=160c, attributes). NEVER invent unverified certifications, purity stamps (e.g. 24K/925), or medical claims.`,
     `Tone: ${req.tone} | Language: ${req.language}`,
