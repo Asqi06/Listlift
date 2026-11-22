@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const lastUpdated = 'November 2026';
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Cookie Policy & Storage Disclosure | ListLift',
+  url: 'https://listlift.com/cookies',
+  dateModified: '2026-11-22',
+  description:
+    'ListLift Cookie Policy explaining essential cookies, browser localStorage, Chrome Extension storage, and how to manage your consent preferences anytime.',
+};
+---
+
+<BaseLayout
+  title="Cookie Policy & Storage Disclosure"
+  description="ListLift Cookie Policy: essential cookies (ll_theme, ll_cookie_consent), local Auto-Fill sync storage, optional analytics consent, and preference controls."
+  canonicalPath="/cookies"
+  jsonLd={webPageSchema}
+>
+  <article class="container legal-shell">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a><span>/</span><span aria-current="page">Cookie Policy</span>
+    </nav>
+
+    <header class="legal-header">
+      <span class="badge badge-pass">Last Updated: {lastUpdated}</span>
+      <h1>Cookie Policy &amp; Local Storage</h1>
+      <p class="muted legal-intro">
+        This Cookie Policy explains what cookies and browser storage ListLift uses, why we use them, and how you can change your preferences at any time.
+      </p>
+      <button
+        type="button"
+        class="btn btn-secondary btn-sm"
+        onclick="window.dispatchEvent(new Event('listlift:open-cookie-settings'))"
+      >
+        Open Cookie Preferences
+      </button>
+    </header>
+
+    <div class="card legal-body">
+      <section>
+        <h2>1. Essential Cookies &amp; Local Storage (Always Active)</h2>
+        <p>These items are strictly necessary for the site and Chrome/Edge Extension to function:</p>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Storage Type</th>
+                <th>Purpose</th>
+                <th>Duration</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>ll_theme</code></td>
+                <td>Cookie</td>
+                <td>Remembers your light or dark mode preference.</td>
+                <td>1 year</td>
+              </tr>
+              <tr>
+                <td><code>ll_cookie_consent</code></td>
+                <td>Cookie</td>
+                <td>Stores your cookie consent choices (essential vs. optional analytics).</td>
+                <td>180 days</td>
+              </tr>
+              <tr>
+                <td><code>listlift_autofill_latest</code></td>
+                <td>localStorage</td>
+                <td>Holds your most recent listing draft locally so the Chrome/Edge Extension can fill seller portals in 1 click.</td>
+                <td>Until cleared</td>
+              </tr>
+              <tr>
+                <td><code>ll_studio_history</code></td>
+                <td>localStorage</td>
+                <td>Shows your last 8 Studio runs locally in your browser (never uploaded).</td>
+                <td>Until cleared</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2>2. Optional Analytics Cookies (Off by Default)</h2>
+        <p>
+          ListLift does <strong>not</strong> load advertising trackers or cross-site behavioral cookies. Optional aggregated analytics remain disabled unless you click <strong>Accept all</strong> or enable them in Cookie Preferences.
+        </p>
+      </section>
+
+      <section>
+        <h2>3. Managing or Clearing Cookies</h2>
+        <p>
+          You can update your preferences at any time by clicking <strong>Cookie Settings</strong> in the footer or the button at the top of this page. You can also clear cookies and site storage directly in Chrome, Edge, Safari, or Firefox settings.
+        </p>
+        <p>
+          Questions? Email <a href="mailto:[support@yourdomain.com]">[support@yourdomain.com]</a> or read our <a href="/privacy">Privacy Policy</a>.
+        </p>
+      </section>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .legal-shell {
+    padding-top: var(--space-8);
+    max-width: 820px;
+  }
+  .legal-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: var(--space-6);
+  }
+  .legal-header h1 {
+    margin: 0;
+  }
+  .legal-intro {
+    margin: 0;
+    font-size: 1.02rem;
+    line-height: 1.65;
+  }
+  .legal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: clamp(20px, 3vw, 34px);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  .legal-body h2 {
+    margin: 0 0 10px;
+    font-size: 1.22rem;
+  }
+  .legal-body p {
+    margin: 0 0 10px;
+    color: var(--text-muted);
+  }
+  .legal-body strong {
+    color: var(--text);
+  }
+</style>

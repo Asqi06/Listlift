@@ -5,6 +5,7 @@ import '@listlift/ui/base.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CommandPalette from '../components/CommandPalette.tsx';
+import CookieConsent from '../components/CookieConsent.tsx';
 
 interface Props {
   title: string;
@@ -120,6 +121,7 @@ const combinedJsonLd = jsonLd
     </nav>
 
     <CommandPalette client:idle />
+    <CookieConsent client:idle />
     <script>
       import '../scripts/motion.ts';
     </script>
