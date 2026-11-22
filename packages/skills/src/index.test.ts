@@ -7,9 +7,9 @@ import {
 } from './index.js';
 
 describe('@listlift/skills', () => {
-  it('loads and validates all 8 launch marketplaces', () => {
+  it('loads and validates all 9 launch marketplaces including Custom Website', () => {
     const skills = getAllMarketplaceSkills();
-    expect(skills).toHaveLength(8);
+    expect(skills).toHaveLength(9);
     expect(LAUNCH_MARKETPLACES).toEqual([
       'amazon',
       'etsy',
@@ -19,6 +19,7 @@ describe('@listlift/skills', () => {
       'flipkart',
       'meesho',
       'shopee',
+      'custom',
     ]);
   });
 

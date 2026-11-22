@@ -24,6 +24,7 @@ export const MarketplaceSkillSchema = z.object({
     'flipkart',
     'meesho',
     'shopee',
+    'custom',
   ]),
   display_name: z.string().min(1),
   region: z.string().min(1),

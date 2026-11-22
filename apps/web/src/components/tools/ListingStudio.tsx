@@ -803,6 +803,10 @@ export default function ListingStudio() {
             </div>
           )}
 
+          <p class="muted" style={{ margin: 0, fontSize: '0.78rem', lineHeight: 1.5 }}>
+            <strong>Transparency note:</strong> ListLift optimizes your listing to match verified marketplace rules, buyer search terms, and claim-safety guidelines. Ranking and sales performance also depend on pricing, reviews, stock, and buyer demand, so no tool can guarantee #1 placement.
+          </p>
+
           <div class="card" style={{ background: 'var(--subtle)', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '14px' }}>
             <div>
               <strong style={{ fontSize: '0.96rem' }}>Need to run 50–500 SKUs at once?</strong>

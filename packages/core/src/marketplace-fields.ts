@@ -133,6 +133,20 @@ export function buildMarketplacePortalFields(
         { key: 'brand_specs', label: 'Brand / Color / Material', value: `${brand} · ${color} · ${material}`, required: true },
       ];
 
+    case 'custom':
+      return [
+        { key: 'h1_title', label: 'Product H1 Title (≤70c ideal)', value: listing.title, required: true, hint: 'Works for WooCommerce, Webflow, Magento, Wix & custom stores' },
+        { key: 'url_handle', label: 'Clean URL Slug', value: `/products/${toUrlHandle(listing.title)}`, required: true, hint: 'SEO-friendly URL path' },
+        { key: 'short_hook', label: 'Short Summary / Excerpt', value: listing.shortDescription, required: true },
+        { key: 'highlights', label: `Key Highlights (${listing.bullets.length})`, value: listing.bullets.map((b) => `• ${b}`).join('\n'), required: false },
+        { key: 'description', label: 'Full Product Description', value: listing.longDescription, required: true },
+        { key: 'seo_title', label: 'SEO Meta Title (≤60 chars)', value: listing.seoMeta.seoTitle, required: true, hint: 'Google Search title link' },
+        { key: 'meta_description', label: 'SEO Meta Description (≤155 chars)', value: listing.seoMeta.metaDescription, required: true, hint: 'Google Search snippet' },
+        { key: 'alt_text', label: 'Primary Image Alt-Text', value: listing.altTextSuggestions[0] ?? listing.title, required: false },
+        { key: 'tags', label: 'Category / Collection Tags', value: listing.tags.join(', '), required: false },
+        { key: 'specs', label: 'Material, Color & Pack Spec', value: `${material} · ${color} · ${size}`, required: false },
+      ];
+
     case 'shopee':
     default:
       return [

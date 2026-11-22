@@ -6,6 +6,7 @@ import meeshoRaw from '../data/meesho.json';
 import shopeeRaw from '../data/shopee.json';
 import shopifyRaw from '../data/shopify.json';
 import walmartRaw from '../data/walmart.json';
+import customRaw from '../data/custom.json';
 import {
   MarketplaceSkillSchema,
   type FieldRule,
@@ -24,6 +25,7 @@ const RAW_SKILLS = [
   flipkartRaw,
   meeshoRaw,
   shopeeRaw,
+  customRaw,
 ];
 
 const parsedSkills: readonly MarketplaceSkill[] = RAW_SKILLS.map((raw) =>

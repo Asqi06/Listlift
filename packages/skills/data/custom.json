@@ -1,0 +1,66 @@
+{
+  "marketplace": "custom",
+  "display_name": "Custom Website",
+  "region": "Global",
+  "version": "2026-11-22",
+  "last_verified": "2026-11-22",
+  "verification_status": "verified",
+  "source_docs": [
+    "https://developers.google.com/search/docs/appearance/title-link",
+    "https://support.google.com/merchants/answer/6324415"
+  ],
+  "fields": {
+    "title": {
+      "label": "Product H1 Title",
+      "min": 20,
+      "max": 120,
+      "recommended_max": 70,
+      "required": true,
+      "notes": "Front-load primary buyer keyword + key spec; keep under 70 chars for clean Google & mobile display."
+    },
+    "description": {
+      "label": "Product Description",
+      "min": 120,
+      "max": 4000,
+      "required": true,
+      "notes": "Natural, human-readable product copy answering buyer questions (fit, material, use-case, care) with Schema-ready clarity."
+    },
+    "bullets": {
+      "label": "Key Highlights",
+      "count_max": 5,
+      "each_max": 180,
+      "required": false,
+      "notes": "3–5 concrete, scannable highlights above the fold."
+    },
+    "tags": {
+      "label": "Collection Tags / Keywords",
+      "count_max": 10,
+      "each_max": 30,
+      "required": false,
+      "notes": "Clean category & filter tags for WooCommerce, Magento, Webflow, Wix, or custom storefronts."
+    },
+    "seo_title": {
+      "label": "SEO Meta Title",
+      "max": 60,
+      "recommended_max": 60,
+      "required": true,
+      "notes": "Keep ≤60 chars so Google Search does not truncate your title link."
+    },
+    "meta_description": {
+      "label": "SEO Meta Description",
+      "min": 70,
+      "max": 155,
+      "required": true,
+      "notes": "70–155 chars summarizing the product and primary benefit to lift search click-through rate."
+    }
+  },
+  "banned_patterns": [
+    "guaranteed #1",
+    "miracle cure",
+    "100% free",
+    "best in the world",
+    "FDA approved"
+  ],
+  "style_notes": "Built for WooCommerce, Magento, BigCommerce, Webflow, Wix, Squarespace, and custom D2C stores. Prioritizes Google Organic Search & Google Shopping clarity, clean URL handles, ≤60c SEO titles, and ≤155c meta descriptions.",
+  "export_template": "custom_d2c_csv"
+}

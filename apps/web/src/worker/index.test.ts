@@ -4,12 +4,12 @@ import { createApp } from './index.js';
 describe('ListLift Hono Worker API', () => {
   const app = createApp();
 
-  it('returns health status with 8 launch marketplaces', async () => {
+  it('returns health status with 9 launch marketplaces', async () => {
     const res = await app.request('/api/v1/health');
     expect(res.status).toBe(200);
     const body = (await res.json()) as { ok: boolean; marketplaces: number };
     expect(body.ok).toBe(true);
-    expect(body.marketplaces).toBe(8);
+    expect(body.marketplaces).toBe(9);
   });
 
   it('returns 404 for unknown marketplace skill', async () => {
